@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: aihub-suite
+    env: node
+    plan: free
+    buildCommand: npm install && pip install -r requirements.txt
+    startCommand: node server.js
+    headers:
+      - key: Cross-Origin-Opener-Policy
+        value: same-origin
+      - key: Cross-Origin-Embedder-Policy
+        value: require-corp
+    envVars:
+      - key: NVIDIA_API_KEY
+        sync: false
+      - key: NVIDIA_EMBED_API_KEY
+        sync: false
