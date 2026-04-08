@@ -19,27 +19,20 @@ const openai = new OpenAI({
   baseURL: 'https://integrate.api.nvidia.com/v1',
 });
 
-// Chat Endpoint
+// ── CHAT ENDPOINT (Optimized for Speed) ──
 app.post('/api/chat', async (req, res) => {
   try {
     const { messages } = req.body;
-    
-    if (!messages || !Array.isArray(messages)) {
-      return res.status(400).json({ error: 'Messages array is required' });
-    }
-
-    const completion = await openai.chat.completions.create({
-      model: "meta/llama3-70b-instruct",
-      messages: messages,
-      temperature: 0.7,
+    const response = await openai.chat.completions.create({
+      model: 'meta/llama-3.1-8b-instruct', // Blazing fast model
+      messages,
       max_tokens: 1024,
-      stream: false,
+      temperature: 0.7,
     });
-
-    res.json({ reply: completion.choices[0].message.content });
+    res.json({ reply: response.choices[0].message.content });
   } catch (error) {
-    console.error('Chat API Error:', error);
-    res.status(500).json({ error: 'Failed to communicate with AI model' });
+    console.error('Chat Error:', error);
+    res.status(500).json({ error: 'Failed to communicate with Chat model' });
   }
 });
 

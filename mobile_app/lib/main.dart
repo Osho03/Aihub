@@ -17,8 +17,8 @@ class _AiHubAppState extends State<AiHubApp> {
   late final WebViewController controller;
   bool isLoading = true;
 
-  // IMPORTANT: CHANGE THIS TO YOUR RENDER/CLOUD URL
-  final String appUrl = "https://your-aihub-url.onrender.com";
+  // IMPORTANT: YOUR PERMANENT RENDER URL
+  final String appUrl = "https://aihub-9dbr.onrender.com";
 
   @override
   void initState() {
