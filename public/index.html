@@ -1,844 +1,349 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"/>
-  <title>AIHUB — Your Personal AI Universe</title>
-  <meta name="description" content="AIHUB — Your personal AI aggregator for chat, images, video scripts, music, research and more." />
-  <meta name="theme-color" content="#7c5cfc" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="AIHUB" />
-  <link rel="manifest" href="/manifest.json" />
-  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    :root {
-      --bg: #060608;
-      --surface: #0d0d15;
-      --surface2: #12121c;
-      --border: rgba(255,255,255,0.07);
-      --accent: #7c5cfc;
-      --accent2: #c45cfc;
-      --accent3: #5cf4fc;
-      --text: #ffffff;
-      --text2: rgba(255,255,255,0.6);
-      --text3: rgba(255,255,255,0.3);
-      --green: #1db954;
-      --sidebar-w: 240px;
-      --bar-h: 70px;
-      --shadow: 0 8px 32px rgba(0,0,0,0.4);
-      --accent-glow: rgba(124, 92, 252, 0.15);
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" name="viewport"/>
+<title>AIHUB — Celestial Intelligence</title>
+<meta name="description" content="AIHUB — Your personal AI aggregator for chat, images, video, music, research and more."/>
+<meta name="theme-color" content="#0e0e0e"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<link rel="manifest" href="/manifest.json"/>
+<link rel="apple-touch-icon" href="/icons/icon-192.png"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#81ecff",
+          "secondary": "#bc87fe",
+          "on-surface": "#ffffff",
+          "on-surface-variant": "#adaaaa",
+          "surface": "#0e0e0e",
+          "surface-container": "#1a1a1a",
+          "surface-container-low": "#131313",
+          "outline-variant": "#484847",
+        },
+        fontFamily: { headline: ["Inter"], body: ["Inter"] }
+      }
     }
-    .light-theme {
-      --bg: #f5f6fa;
-      --surface: #ffffff;
-      --surface2: #eff1f5;
-      --border: rgba(0,0,0,0.06);
-      --text: #1a1a1f;
-      --text2: rgba(0,0,0,0.65);
-      --text3: rgba(0,0,0,0.35);
-      --shadow: 0 8px 32px rgba(0,0,0,0.08);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+  }
+</script>
+<link rel="stylesheet" href="style.css"/>
+<style>
+  :root {
+    --bg: #060608; --surface: #0d0d15; --surface2: #12121c;
+    --border: rgba(255,255,255,0.07); --accent: #7c5cfc; --accent2: #c45cfc;
+    --accent3: #5cf4fc; --text: #ffffff; --text2: rgba(255,255,255,0.6);
+    --text3: rgba(255,255,255,0.3); --green: #1db954;
+    --sidebar-w: 0px; --bar-h: 0px;
+    --shadow: 0 8px 32px rgba(0,0,0,0.4); --accent-glow: rgba(124,92,252,0.15);
+  }
+  .light-theme {
+    --bg: #f5f6fa; --surface: #ffffff; --surface2: #eff1f5;
+    --border: rgba(0,0,0,0.06); --text: #1a1a1f;
+    --text2: rgba(0,0,0,0.65); --text3: rgba(0,0,0,0.35);
+    --shadow: 0 8px 32px rgba(0,0,0,0.08);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:#0e0e0e;font-family:'Inter',sans-serif;color:#fff;min-height:100vh;font-weight:400;overflow-x:hidden}
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24}
+  .card-glow{transition:all 0.4s cubic-bezier(0.4,0,0.2,1)}
+  .card-glow:hover{transform:translateY(-4px)}
+  .inner-glow{box-shadow:inset 0 1px 0 0 rgba(255,255,255,0.08)}
+  .bento-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem}
 
-    body {
-      background: var(--bg);
-      font-family: 'Manrope', sans-serif;
-      color: var(--text);
-      min-height: 100vh;
-      overflow: hidden;
-      font-weight: 400;
-    }
+  /* Ripple */
+  .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,0.12);transform:scale(0);animation:rippleAnim 0.55s linear;pointer-events:none}
+  @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
 
-    /* ── Animated Mesh Gradient Background ── */
-    body::before {
-      content: '';
-      position: fixed;
-      top: -50%; left: -50%;
-      width: 200%; height: 200%;
-      background: radial-gradient(circle at 20% 30%, #7c5cfc20 0%, transparent 50%),
-                  radial-gradient(circle at 80% 70%, #c45cfc15 0%, transparent 50%),
-                  radial-gradient(circle at 50% 50%, #0d0d15 0%, #060608 100%);
-      z-index: -1;
-      animation: meshFlow 20s ease-in-out infinite alternate;
-    }
-    @keyframes meshFlow {
-      0% { transform: scale(1) translate(0, 0); }
-      50% { transform: scale(1.1) translate(-20px, 30px); }
-      100% { transform: scale(1) translate(20px, -10px); }
-    }
+  /* Toast */
+  .toast{position:fixed;bottom:110px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(20,20,32,0.95);backdrop-filter:blur(16px);border:1px solid rgba(124,92,252,0.4);border-radius:12px;padding:12px 22px;font-size:13px;color:#fff;box-shadow:0 8px 32px rgba(0,0,0,0.5);z-index:9999;opacity:0;transition:all 0.3s cubic-bezier(.34,1.56,.64,1);pointer-events:none;white-space:nowrap}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-    /* ── Staggered Entrance Animations ── */
-    .hero-card, .tool-card, .row-card {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: cardEntrance 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-    }
+  /* Onboard tip */
+  .onboard-tip{position:fixed;top:80px;right:20px;width:260px;background:rgba(20,20,28,0.95);backdrop-filter:blur(10px);border:1px solid rgba(124,92,252,0.4);border-radius:16px;padding:16px;color:white;z-index:1000;box-shadow:0 10px 40px rgba(0,0,0,0.5);transform:translateX(300px);transition:transform 0.5s cubic-bezier(.34,1.56,.64,1)}
+  .onboard-tip.show{transform:translateX(0)}
 
-    .hero-grid .hero-card:nth-child(1) { animation-delay: 0.1s; }
-    .hero-grid .hero-card:nth-child(2) { animation-delay: 0.15s; }
-    .hero-grid .hero-card:nth-child(3) { animation-delay: 0.2s; }
-    .hero-grid .hero-card:nth-child(4) { animation-delay: 0.25s; }
-    .hero-grid .hero-card:nth-child(5) { animation-delay: 0.3s; }
-    .hero-grid .hero-card:nth-child(6) { animation-delay: 0.35s; }
+  /* Fade-in */
+  .fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease}
+  .fade-in.visible{opacity:1;transform:translateY(0)}
 
-    @keyframes cardEntrance {
-      to { opacity: 1; transform: translateY(0); }
-    }
+  /* Dot pulse */
+  .active-dot{width:7px;height:7px;border-radius:50%;background:#1db954;animation:dotPulse 2s infinite}
+  @keyframes dotPulse{0%,100%{opacity:1}50%{opacity:0.4}}
 
-    /* ── App shell ── */
-    .app-shell {
-      display: grid;
-      grid-template-columns: var(--sidebar-w) 1fr;
-      grid-template-rows: 1fr var(--bar-h);
-      height: 100vh;
-      position: relative;
-      z-index: 1;
-    }
+  /* pill filter */
+  .pill{padding:7px 18px;border-radius:100px;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.2s;user-select:none;border:1px solid transparent;display:inline-block}
+  .pill.active{background:var(--accent);color:#fff;box-shadow:0 4px 14px #7c5cfc50}
+  .pill:not(.active){background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.1)}
+  .pill:not(.active):hover{background:rgba(255,255,255,0.13);color:#fff}
 
-    /* ═══════════════ SIDEBAR ═══════════════ */
-    .sidebar {
-      grid-row: 1 / 3;
-      background: rgba(10,10,18,0.95);
-      backdrop-filter: blur(20px);
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      padding: 0;
-      overflow-y: auto;
-      scrollbar-width: none;
-      width: var(--sidebar-w);
-    }
-    .sidebar::-webkit-scrollbar { display: none; }
+  /* Mini player progress */
+  .mini-progress{height:2px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;margin-top:4px}
+  .mini-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#81ecff,#bc87fe);border-radius:2px;transition:width 0.5s linear}
 
-    .logo-wrap {
-      padding: 16px 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .logo-icon {
-      width: 32px; height: 32px;
-      background: linear-gradient(135deg, #7c5cfc, #c45cfc);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px;
-      box-shadow: 0 0 16px #7c5cfc40;
-    }
-    .logo-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 17px; letter-spacing: -0.5px; }
-    .logo-text span { background: linear-gradient(135deg, #7c5cfc, #c45cfc); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-    
-    .nav-section { padding: 0 8px 4px; }
-    .nav-label {
-      font-size: 9px; font-weight: 700; color: var(--text3);
-      letter-spacing: 1.5px; text-transform: uppercase;
-      padding: 10px 8px 6px;
-    }
-    .nav-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 8px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px; color: var(--text2);
-      transition: all 0.18s ease;
-      position: relative;
-      overflow: hidden;
-      user-select: none;
-    }
-    .nav-item::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(90deg, #7c5cfc15, transparent);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .nav-item:hover { color: var(--text); transform: translateX(3px); }
-    .nav-item:hover::before { opacity: 1; }
-    .nav-item.active {
-      color: var(--text);
-      background: linear-gradient(90deg, #7c5cfc22, #7c5cfc08);
-      border-left: 2px solid var(--accent);
-      padding-left: 10px;
-    }
-    .nav-item.active .nav-ico { filter: drop-shadow(0 0 6px #7c5cfc); }
-    .nav-ico { font-size: 15px; width: 18px; text-align: center; flex-shrink: 0; }
-
-    .sidebar-divider { height: 1px; background: var(--border); margin: 10px 10px; }
-
-    .recent-label { font-size: 9px; font-weight: 700; color: var(--text3); letter-spacing: 1.5px; text-transform: uppercase; padding: 10px 18px 6px; }
-    .recent-item {
-      display: flex; align-items: center; gap: 8px;
-      padding: 6px 18px; cursor: pointer;
-      font-size: 12px; color: var(--text2);
-      transition: all 0.15s;
-    }
-    .recent-item:hover { color: var(--text); background: rgba(255,255,255,0.02); }
-    .recent-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-    @keyframes dotPulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
-    /* ═══════════════ TOPBAR ═══════════════ */
-    .topbar {
-      padding: 16px 28px;
-      display: flex; align-items: center; justify-content: space-between;
-      background: rgba(6,6,8,0.7);
-      backdrop-filter: blur(24px);
-      border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; z-index: 10;
-      transition: background 0.3s;
-    }
-    .topbar.scrolled { background: rgba(6,6,8,0.95); }
-
-    .search-wrap {
-      display: flex; align-items: center; gap: 10px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 100px;
-      padding: 9px 18px;
-      width: 280px;
-      transition: all 0.25s;
-    }
-    .search-wrap:focus-within {
-      border-color: var(--accent);
-      background: rgba(255,255,255,0.1);
-      box-shadow: 0 0 0 3px #7c5cfc20;
-    }
-    .search-wrap input {
-      background: none; border: none; outline: none;
-      color: var(--text); font-size: 13px; font-family: 'DM Sans', sans-serif;
-      width: 100%;
-    }
-    .search-wrap input::placeholder { color: var(--text3); }
-
-    .topbar-right { display: flex; align-items: center; gap: 14px; }
-    .active-badge {
-      display: flex; align-items: center; gap: 7px;
-      font-size: 12px; color: var(--text3);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
-      border-radius: 100px; padding: 5px 12px;
-    }
-    .active-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: dotPulse 2s infinite; }
-    .avatar {
-      width: 34px; height: 34px; border-radius: 50%;
-      background: linear-gradient(135deg, #7c5cfc, #c45cfc);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 600; cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .avatar:hover { transform: scale(1.08); box-shadow: 0 0 16px #7c5cfc60; }
-
-    /* ═══════════════ MAIN CONTENT ═══════════════ */
-    .main-area {
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: #ffffff15 transparent;
-    }
-    .main-area::-webkit-scrollbar { width: 4px; }
-    .main-area::-webkit-scrollbar-thumb { background: #ffffff15; border-radius: 4px; }
-
-    .content { padding: 28px 28px 32px; }
-
-    .greeting {
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: 28px; letter-spacing: -0.5px;
-      margin-bottom: 24px;
-      background: linear-gradient(135deg, #fff 60%, #7c5cfc);
-      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .greeting span { animation: waveHand 2.5s ease-in-out infinite; display: inline-block; -webkit-text-fill-color: initial; }
-    @keyframes waveHand { 0%,100%{transform:rotate(0)} 25%{transform:rotate(20deg)} 75%{transform:rotate(-10deg)} }
-
-    .section-hdr {
-      display: flex; align-items: baseline; justify-content: space-between;
-      margin-bottom: 16px;
-    }
-    .section-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.3px; }
-    .see-all { font-size: 12px; color: var(--accent); cursor: pointer; font-weight: 500; letter-spacing: 0.3px; transition: opacity 0.15s; }
-    .see-all:hover { opacity: 0.7; }
-
-    /* ── Hero Category Cards (Spotify big tiles) ── */
-    .hero-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 36px;
-    }
-    .hero-card {
-      border-radius: 16px;
-      padding: 22px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      min-height: 130px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), box-shadow 0.25s;
-      isolation: isolate;
-    }
-    .hero-card::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: inherit;
-      filter: brightness(1.2);
-      opacity: 0;
-      transition: opacity 0.3s;
-      z-index: 0;
-    }
-    .hero-card:hover { transform: translateY(-5px) scale(1.02); }
-    .hero-card:hover::before { opacity: 0.3; }
-    .hero-card:active { transform: scale(0.97); }
-
-    .hc-text  { background: linear-gradient(135deg, #1a0a3a 0%, #3d1a80 50%, #1a0538 100%); box-shadow: 0 8px 32px #7c5cfc30; }
-    .hc-text:hover { box-shadow: 0 16px 48px #7c5cfc50; }
-    .hc-image { background: linear-gradient(135deg, #0a1f40 0%, #0d4020 50%, #1a3060 100%); box-shadow: 0 8px 32px #3b82f630; }
-    .hc-image:hover { box-shadow: 0 16px 48px #3b82f650; }
-    .hc-audio { background: linear-gradient(135deg, #2d0a1c 0%, #501040 50%, #1a0828 100%); box-shadow: 0 8px 32px #ec489930; }
-    .hc-audio:hover { box-shadow: 0 16px 48px #ec489950; }
-    .hc-video { background: linear-gradient(135deg, #0a2010 0%, #1c6030 50%, #081808 100%); box-shadow: 0 8px 32px #22c55e30; }
-    .hc-video:hover { box-shadow: 0 16px 48px #22c55e50; }
-    .hc-prod  { background: linear-gradient(135deg, #1a1000 0%, #4a3000 50%, #1a0800 100%); box-shadow: 0 8px 32px #f59e0b30; }
-    .hc-prod:hover { box-shadow: 0 16px 48px #f59e0b50; }
-    .hc-res   { background: linear-gradient(135deg, #001a20 0%, #004060 50%, #001028 100%); box-shadow: 0 8px 32px #06b6d430; }
-    .hc-res:hover { box-shadow: 0 16px 48px #06b6d450; }
-
-    .hero-card > * { position: relative; z-index: 1; }
-    .hc-badge {
-      position: absolute; top: 14px; right: 14px; z-index: 2;
-      background: rgba(255,255,255,0.12);
-      backdrop-filter: blur(8px);
-      border-radius: 100px; padding: 4px 10px;
-      font-size: 10px; font-weight: 600; color: #fff;
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-    .hc-emoji {
-      font-size: 32px;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
-      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
-    }
-    .hero-card:hover .hc-emoji { transform: scale(1.2) rotate(-5deg); }
-    .hc-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 17px; margin-top: 10px; }
-    .hc-sub { font-size: 11.5px; color: rgba(255,255,255,0.55); margin-top: 3px; }
-
-    /* ── Decorative background emoji ── */
-    .hc-bg-emoji {
-      position: absolute; right: -10px; bottom: -10px; z-index: 0;
-      font-size: 80px; opacity: 0.12;
-      transition: transform 0.4s ease, opacity 0.3s;
-      pointer-events: none;
-    }
-    .hero-card:hover .hc-bg-emoji { transform: scale(1.15) rotate(10deg); opacity: 0.2; }
-
-    /* ── Filter pills ── */
-    .pills-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 26px; }
-    .pill {
-      padding: 7px 18px; border-radius: 100px;
-      font-size: 12.5px; font-weight: 500; cursor: pointer;
-      transition: all 0.2s cubic-bezier(.34,1.56,.64,1);
-      user-select: none; border: 1px solid transparent;
-    }
-    .pill.active {
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 0 4px 14px #7c5cfc50;
-      transform: scale(1.04);
-    }
-    .pill:not(.active) {
-      background: rgba(255,255,255,0.07);
-      color: var(--text2);
-      border-color: rgba(255,255,255,0.1);
-    }
-    .pill:not(.active):hover {
-      background: rgba(255,255,255,0.13);
-      color: var(--text);
-      transform: scale(1.04);
-    }
-
-    /* ── Tools grid ── */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 32px;
-    }
-    .tool-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px; padding: 16px;
-      cursor: pointer;
-      transition: all 0.35s cubic-bezier(.34,1.56,.64,1);
-      display: flex; flex-direction: column; gap: 10px;
-      position: relative; overflow: hidden;
-    }
-    .tool-card::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(circle at 50% 0%, #7c5cfc15, transparent 60%);
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .tool-card:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: #7c5cfc80;
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 12px 30px rgba(124, 92, 252, 0.15), 0 0 0 1px rgba(124, 92, 252, 0.4);
-    }
-    .tool-card:hover::after { opacity: 1; }
-    .tool-card.featured { border-color: #7c5cfc40; background: #7c5cfc0d; }
-    .tool-card:active { transform: scale(0.97); }
-
-    .tool-top { display: flex; align-items: center; justify-content: space-between; }
-    .tool-ico {
-      width: 38px; height: 38px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 19px;
-      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
-    }
-    .tool-card:hover .tool-ico { transform: scale(1.15) rotate(-5deg); }
-    .ic-purple { background: #7c5cfc20; }
-    .ic-blue   { background: #3b82f620; }
-    .ic-green  { background: #22c55e20; }
-    .ic-amber  { background: #f59e0b20; }
-    .ic-pink   { background: #ec489920; }
-    .ic-cyan   { background: #06b6d420; }
-    .ic-red    { background: #ef444420; }
-    .ic-lime   { background: #84cc1620; }
-
-    .tag-hot { font-size: 9px; background: #f59e0b20; color: #f59e0b; padding: 3px 8px; border-radius: 100px; font-weight: 600; }
-    .tag-new { font-size: 9px; background: #7c5cfc20; color: #a78bfa; padding: 3px 8px; border-radius: 100px; font-weight: 600; }
-    .tag-top { font-size: 9px; background: #22c55e20; color: #22c55e; padding: 3px 8px; border-radius: 100px; font-weight: 600; }
-
-    .tool-name { font-size: 13px; font-weight: 500; }
-    .tool-desc { font-size: 11.5px; color: var(--text3); line-height: 1.45; margin-top: 2px; }
-    .tool-uses {
-      font-size: 10.5px; color: rgba(255,255,255,0.22);
-      display: flex; align-items: center; gap: 5px;
-    }
-    .uses-bar {
-      flex: 1; height: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden;
-    }
-    .uses-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, #7c5cfc, #c45cfc); }
-
-    /* ── Specialized row cards ── */
-    .row-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr);
-      gap: 12px; margin-bottom: 32px;
-    }
-    .row-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px; padding: 15px 18px;
-      cursor: pointer;
-      display: flex; align-items: center; gap: 14px;
-      transition: all 0.22s cubic-bezier(.34,1.56,.64,1);
-    }
-    .row-card:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.18);
-      transform: translateX(4px);
-    }
-    .row-ico {
-      width: 46px; height: 46px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; flex-shrink: 0;
-      transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
-    }
-    .row-card:hover .row-ico { transform: scale(1.12) rotate(-5deg); }
-    .row-info { flex: 1; }
-    .row-title { font-size: 13.5px; font-weight: 500; }
-    .row-sub { font-size: 11.5px; color: var(--text2); margin-top: 2px; }
-    .row-arrow { color: var(--text3); font-size: 18px; transition: transform 0.2s; }
-    .row-card:hover .row-arrow { color: var(--text2); transform: translateX(4px); }
-
-    /* ═══════════════ PLAYER BAR ═══════════════ */
-    .player-bar {
-      grid-column: 2;
-      background: rgba(10,10,18,0.96);
-      backdrop-filter: blur(24px);
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 0 28px;
-      display: flex; align-items: center; justify-content: space-between;
-      position: relative;
-    }
-    .player-bar::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, #7c5cfc60, #c45cfc60, transparent);
-      animation: lineShimmer 4s linear infinite;
-    }
-    @keyframes lineShimmer {
-      0%   { opacity: 0.4; }
-      50%  { opacity: 1; }
-      100% { opacity: 0.4; }
-    }
-
-    .now-using { display: flex; align-items: center; gap: 13px; min-width: 200px; }
-    .now-ico {
-      width: 44px; height: 44px; border-radius: 12px;
-      background: linear-gradient(135deg, #7c5cfc30, #c45cfc30);
-      border: 1px solid #7c5cfc40;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 21px;
-      animation: iconBreathe 3s ease-in-out infinite;
-    }
-    @keyframes iconBreathe {
-      0%,100% { box-shadow: 0 0 0 0 #7c5cfc00; }
-      50%      { box-shadow: 0 0 12px 4px #7c5cfc40; }
-    }
-    .now-label { font-size: 11px; color: var(--text3); margin-bottom: 2px; }
-    .now-name { font-size: 13.5px; font-weight: 500; }
-    .now-cat { font-size: 11px; color: var(--accent); }
-
-    .player-center { display: flex; align-items: center; gap: 12px; }
-    .ctrl-btn {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--text); border-radius: 9px;
-      padding: 8px 18px; font-size: 12.5px;
-      cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500;
-      transition: all 0.18s;
-    }
-    .ctrl-btn:hover { background: rgba(255,255,255,0.15); transform: translateY(-1px); }
-    .ctrl-btn:active { transform: scale(0.96); }
-    .ctrl-btn.primary {
-      background: linear-gradient(135deg, #7c5cfc, #c45cfc);
-      border-color: transparent;
-      box-shadow: 0 4px 14px #7c5cfc50;
-      padding: 9px 22px;
-      font-size: 13px;
-    }
-    .ctrl-btn.primary:hover { box-shadow: 0 6px 20px #7c5cfc70; transform: translateY(-2px); }
-
-    .credits-wrap { display: flex; align-items: center; gap: 9px; min-width: 160px; justify-content: flex-end; }
-    .credit-orb {
-      width: 10px; height: 10px; border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 8px var(--accent);
-      animation: dotPulse 2s infinite;
-    }
-    .credits-text { font-size: 12px; color: var(--text3); }
-    .credits-count { font-size: 12px; color: var(--text2); font-weight: 500; }
-
-    /* ── Ripple effect ── */
-    .ripple {
-      position: absolute; border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      transform: scale(0);
-      animation: rippleAnim 0.55s linear;
-      pointer-events: none;
-    }
-    @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
-
-    /* ── Scroll fade-in ── */
-    .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-    /* ── Toast ── */
-    .toast {
-      position: fixed; bottom: 96px; left: 50%; transform: translateX(-50%) translateY(20px);
-      background: rgba(20,20,32,0.95);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(124,92,252,0.4);
-      border-radius: 12px; padding: 12px 22px;
-      font-size: 13px; color: var(--text);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-      z-index: 100; opacity: 0;
-      transition: all 0.3s cubic-bezier(.34,1.56,.64,1);
-      pointer-events: none; white-space: nowrap;
-    }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-    /* ── Theme Toggle ── */
-    .theme-toggle {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      width: 40px; height: 40px;
-      border-radius: 12px;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      margin-right: 12px;
-      transition: all 0.2s ease;
-      box-shadow: var(--shadow);
-    }
-    .theme-toggle:hover {
-      transform: scale(1.05);
-      border-color: var(--accent);
-    }
-
-    /* ── Speak Button ── */
-    .speak-btn {
-      position: absolute;
-      bottom: 8px; right: 12px;
-      background: none; border: none;
-      cursor: pointer; font-size: 14px;
-      opacity: 0.3; transition: all 0.2s;
-      color: var(--text);
-      z-index: 5;
-    }
-    .speak-btn:hover { opacity: 1; transform: scale(1.2); color: var(--accent); }
-    .chat-bubble.ai { padding-bottom: 28px !important; }
-
-    /* ── Compact section title ── */
-    .section-title-sm { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 15px; }
-  </style>
+  /* Card section title */
+  .section-lbl{font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#81ecff;margin-bottom:0.5rem;display:block}
+</style>
 </head>
-<body>
+<body class="bg-[#0e0e0e] text-white antialiased">
 
-<div class="app-shell">
+<!-- ═══════ AMBIENT LIGHT LEAKS ═══════ -->
+<div class="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
 
-  <!-- ════════ SIDEBAR ════════ -->
-  <nav class="sidebar">
-    <div class="logo-wrap">
-      <div class="logo-icon">✦</div>
-      <div class="logo-text">AI<span>HUB</span></div>
+<!-- ═══════ TOPBAR ═══════ -->
+<header class="fixed top-0 w-full z-50 bg-zinc-950/70 backdrop-blur-3xl border-b border-white/5">
+  <div class="flex justify-between items-center px-5 h-14 max-w-7xl mx-auto">
+    <div class="flex items-center gap-3">
+      <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center text-[13px] font-black">✦</div>
+      <h1 class="text-base font-black tracking-tighter uppercase text-white">AIHUB</h1>
     </div>
-
-    <div class="nav-section">
-      <div class="nav-label">Menu</div>
-      <div class="nav-item active" onclick="setNav(this,'Home')"><span class="nav-ico">⊞</span> Home</div>
-      <div class="nav-item" onclick="setNav(this,'Discover')"><span class="nav-ico">🔍</span> Discover</div>
-      <div class="nav-item" onclick="setNav(this,'My Favorites')"><span class="nav-ico">★</span> My Favorites</div>
-      <div class="nav-item" onclick="setNav(this,'History')"><span class="nav-ico">◷</span> History</div>
+    <div class="flex items-center gap-3">
+      <!-- Search -->
+      <div class="hidden md:flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2 w-56 focus-within:border-cyan-400/60 transition-colors">
+        <span class="text-white/30 text-sm">⌕</span>
+        <input type="text" id="searchInput" placeholder="Search tools…" oninput="filterTools(this.value)"
+          class="bg-transparent border-none outline-none text-white text-xs w-full placeholder-white/30"/>
+      </div>
+      <!-- Theme toggle -->
+      <button onclick="toggleTheme()" id="themeToggle" class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-sm hover:border-cyan-400/50 transition-colors" title="Toggle theme">
+        <span id="themeIco">🌙</span>
+      </button>
+      <!-- Active badge -->
+      <div class="hidden md:flex items-center gap-2 text-xs text-white/40 bg-white/5 border border-white/10 rounded-full px-3 py-1.5">
+        <div class="active-dot"></div><span>7 active</span>
+      </div>
+      <!-- Avatar -->
+      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center text-xs font-bold cursor-pointer hover:opacity-80 transition">You</div>
     </div>
+  </div>
+</header>
 
-    <div class="sidebar-divider"></div>
+<!-- ═══════ MAIN SCROLL AREA ═══════ -->
+<main id="mainArea" class="pt-20 pb-40 px-4 max-w-7xl mx-auto relative z-10">
 
-    <div class="nav-section">
-      <div class="nav-label">Categories</div>
-      <div class="nav-item" onclick="setNav(this,'Text AI')"><span class="nav-ico">✍</span> Text AI</div>
-      <div class="nav-item" onclick="setNav(this,'Image AI')"><span class="nav-ico">🎨</span> Image AI</div>
-      <div class="nav-item" onclick="setNav(this,'Music AI')"><span class="nav-ico">🎵</span> Music AI</div>
-      <div class="nav-item" onclick="setNav(this,'Voice AI')"><span class="nav-ico">🗣</span> Voice AI</div>
-      <div class="nav-item" onclick="setNav(this,'Productivity')"><span class="nav-ico">📊</span> Productivity</div>
-      <div class="nav-item" onclick="setNav(this,'Video AI')"><span class="nav-ico">🎬</span> Video AI</div>
-      <div class="nav-item" onclick="setNav(this,'Research AI')"><span class="nav-ico">🔬</span> Research AI</div>
-      <div class="nav-item" onclick="setNav(this,'Specialized')"><span class="nav-ico">🌀</span> Specialized</div>
-    </div>
+  <!-- Hero Label -->
+  <section class="mb-8 fade-in">
+    <span class="section-lbl">Neural Architecture v.04</span>
+    <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-none">Celestial <br/><span class="text-white/40">Intelligence.</span></h2>
+    <p class="text-white/40 text-sm mt-3 max-w-xs">Synthesizing human creativity with machine precision.</p>
+  </section>
 
-    <div class="sidebar-divider"></div>
+  <!-- Filter Pills -->
+  <div class="flex gap-2 flex-wrap mb-6 fade-in" id="pillsRow">
+    <span class="pill active" onclick="setPill(this,'All')">All</span>
+    <span class="pill" onclick="setPill(this,'Text')">Text</span>
+    <span class="pill" onclick="setPill(this,'Image')">Image</span>
+    <span class="pill" onclick="setPill(this,'Audio')">Audio</span>
+    <span class="pill" onclick="setPill(this,'Video')">Video</span>
+    <span class="pill" onclick="setPill(this,'Productivity')">Productivity</span>
+    <span class="pill" onclick="setPill(this,'Research')">Research</span>
+    <span class="pill" onclick="setPill(this,'Specialized')">Specialized</span>
+  </div>
 
-    <div class="recent-label">Interaction History</div>
-    <div id="recentHistoryContainer"></div>
-  </nav>
+  <!-- ═══ BENTO GRID ═══ -->
+  <div class="bento-grid mb-8" id="toolsGrid">
 
-  <!-- ════════ MAIN ════════ -->
-  <div class="main-area" id="mainArea">
-
-    <!-- Topbar -->
-    <div class="topbar" id="topbar">
-      <div class="search-wrap">
-        <span style="color:rgba(255,255,255,0.3);font-size:15px">⌕</span>
-        <input type="text" placeholder="Search AI tools, categories…" id="searchInput" oninput="filterTools(this.value)" />
-      </div>
-      <div class="topbar-right">
-        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Switch Theme">
-          <span id="themeIco">🌙</span>
-        </button>
-        <div class="active-badge"><div class="active-dot"></div> 7 tools active</div>
-        <div class="avatar">You</div>
-      </div>
-    </div>
-
-    <div class="content">
-      <!-- Greeting -->
-      <div class="greeting fade-in">Good evening <span>✦</span></div>
-
-      <!-- Hero Section -->
-      <div class="section-hdr fade-in"><div class="section-title">Explore Categories</div><div class="see-all">View all →</div></div>
-      <div class="hero-grid fade-in">
-        <div class="hero-card hc-text" onclick="openTool('Text AI','✍')">
-          <div class="hc-badge">12 tools</div>
-          <div class="hc-bg-emoji">✍️</div>
-          <div class="hc-emoji">✍️</div>
-          <div><div class="hc-title">Text AI</div><div class="hc-sub">Summarize · Write · Chat · Rewrite</div></div>
-        </div>
-        <div class="hero-card hc-image" onclick="openTool('Image AI','🎨')">
-          <div class="hc-badge">8 tools</div>
-          <div class="hc-bg-emoji">🎨</div>
-          <div class="hc-emoji">🎨</div>
-          <div><div class="hc-title">Image AI</div><div class="hc-sub">Generate · Edit · Upscale · Remove bg</div></div>
-        </div>
-        <div class="hero-card hc-audio" onclick="openTool('Music & Voice','🎵')">
-          <div class="hc-badge">9 tools</div>
-          <div class="hc-bg-emoji">🎵</div>
-          <div class="hc-emoji">🎵</div>
-          <div><div class="hc-title">Music & Voice</div><div class="hc-sub">Compose · Clone · TTS · Transcribe</div></div>
-        </div>
-        <div class="hero-card hc-video" onclick="openTool('Video AI','🎬')">
-          <div class="hc-badge">6 tools</div>
-          <div class="hc-bg-emoji">🎬</div>
-          <div class="hc-emoji">🎬</div>
-          <div><div class="hc-title">Video AI</div><div class="hc-sub">Generate · Caption · Edit · Scene</div></div>
-        </div>
-        <div class="hero-card hc-prod" onclick="openTool('Productivity','📊')">
-          <div class="hc-badge">11 tools</div>
-          <div class="hc-bg-emoji">📊</div>
-          <div class="hc-emoji">📊</div>
-          <div><div class="hc-title">Productivity</div><div class="hc-sub">Email · Code · Data · Notes</div></div>
-        </div>
-        <div class="hero-card hc-res" onclick="openTool('Research AI','🔬')">
-          <div class="hc-badge">5 tools</div>
-          <div class="hc-bg-emoji">🔬</div>
-          <div class="hc-emoji">🔬</div>
-          <div><div class="hc-title">Research AI</div><div class="hc-sub">Papers · Legal · Analysis · Fact-check</div></div>
-        </div>
-      </div>
-
-      <!-- Pills -->
-      <div class="pills-row fade-in" id="pillsRow">
-        <div class="pill active" onclick="setPill(this,'All')">All</div>
-        <div class="pill" onclick="setPill(this,'Text')">Text</div>
-        <div class="pill" onclick="setPill(this,'Image')">Image</div>
-        <div class="pill" onclick="setPill(this,'Audio')">Audio</div>
-        <div class="pill" onclick="setPill(this,'Video')">Video</div>
-        <div class="pill" onclick="setPill(this,'Productivity')">Productivity</div>
-        <div class="pill" onclick="setPill(this,'Research')">Research</div>
-        <div class="pill" onclick="setPill(this,'Specialized')">Specialized</div>
-      </div>
-
-      <!-- Popular Tools -->
-      <div class="section-hdr fade-in"><div class="section-title-sm">Popular Tools</div><div class="see-all">See all</div></div>
-      <div class="tools-grid fade-in" id="toolsGrid">
-
-        <div class="tool-card featured" data-cat="Text" onclick="openTool('Summarizer','✍')">
-          <div class="tool-top"><div class="tool-ico ic-purple">✍</div><div class="tag-hot">HOT</div></div>
-          <div><div class="tool-name">Summarizer</div><div class="tool-desc">Paste articles, PDFs or URLs</div></div>
-          <div class="tool-uses"><span>847 uses</span><div class="uses-bar"><div class="uses-fill" style="width:85%"></div></div></div>
-        </div>
-
-        <div class="tool-card" data-cat="Image" onclick="openTool('Image Generator','🖼️')">
-          <div class="tool-top"><div class="tool-ico ic-blue">🖼️</div><div class="tag-new">NEW</div></div>
-          <div><div class="tool-name">Image Generator</div><div class="tool-desc">Text to stunning visuals</div></div>
-          <div class="tool-uses"><span>612 uses</span><div class="uses-bar"><div class="uses-fill" style="width:61%"></div></div></div>
-        </div>
-
-        <div class="tool-card" data-cat="Audio" onclick="openTool('Music Composer','🎵')">
-          <div class="tool-top"><div class="tool-ico ic-green">🎵</div></div>
-          <div><div class="tool-name">Music Composer</div><div class="tool-desc">Describe a mood, get a track</div></div>
-          <div class="tool-uses"><span>389 uses</span><div class="uses-bar"><div class="uses-fill" style="width:39%"></div></div></div>
-        </div>
-
-        <div class="tool-card" data-cat="Audio" onclick="openTool('Voice Clone','🗣️')">
-          <div class="tool-top"><div class="tool-ico ic-pink">🗣️</div></div>
-          <div><div class="tool-name">Voice Clone</div><div class="tool-desc">TTS with realistic voices</div></div>
-          <div class="tool-uses"><span>290 uses</span><div class="uses-bar"><div class="uses-fill" style="width:29%"></div></div></div>
-        </div>
-
-        <div class="tool-card" data-cat="Text" onclick="openTool('AI Chatbot','💬')">
-          <div class="tool-top"><div class="tool-ico ic-cyan">💬</div><div class="tag-hot">HOT</div></div>
-          <div><div class="tool-name">AI Chatbot</div><div class="tool-desc">Q&A, coding help, roleplay</div></div>
-          <div class="tool-uses"><span>1.2k uses</span><div class="uses-bar"><div class="uses-fill" style="width:100%"></div></div></div>
-        </div>
-
-        <div class="tool-card" data-cat="Productivity" onclick="openTool('Data Analyst','📊')">
-          <div class="tool-top"><div class="tool-ico ic-amber">📊</div></div>
-          <div><div class="tool-name">Data Analyst</div><div class="tool-desc">Ask plain English questions</div></div>
-          <div class="tool-uses"><span>178 uses</span><div class="uses-bar"><div class="uses-fill" style="width:18%"></div></div></div>
-        </div>
-
-        <div class="tool-card" data-cat="Video" onclick="openTool('Video Generator','🎬')">
-          <div class="tool-top"><div class="tool-ico ic-red">🎬</div><div class="tag-new">NEW</div></div>
-          <div><div class="tool-name">Video Generator</div><div class="tool-desc">Text-to-video, auto-caption</div></div>
-          <div class="tool-uses"><span>94 uses</span><div class="uses-bar"><div class="uses-fill" style="width:9%"></div></div></div>
-        </div>
-
-        <div class="tool-card" data-cat="Research" onclick="openTool('Research AI','🔬')">
-          <div class="tool-top"><div class="tool-ico" style="background:#3b82f630; color:#3b82f6;">🔬</div><div class="tag-top">TOP</div></div>
-          <div><div class="tool-name">Research AI</div><div class="tool-desc">Analyze papers, files & contracts</div></div>
-          <div class="tool-uses"><span>203 uses</span><div class="uses-bar"><div class="uses-fill" style="width:20%; background:#3b82f6;"></div></div></div>
-        </div>
-
-      </div>
-
-      <!-- Specialized -->
-      <div class="section-hdr fade-in"><div class="section-title-sm">Specialized</div><div class="see-all">See all</div></div>
-      <div class="row-grid fade-in">
-        <div class="row-card" onclick="openTool('Recipe Generator','🍽️')">
-          <div class="row-ico" style="background:#7c5cfc20">🍽️</div>
-          <div class="row-info"><div class="row-title">Recipe Generator</div><div class="row-sub">From your ingredients</div></div>
-          <div class="row-arrow">›</div>
-        </div>
-        <div class="row-card" onclick="openTool('Workout Planner','🏋️')">
-          <div class="row-ico" style="background:#22c55e20">🏋️</div>
-          <div class="row-info"><div class="row-title">Workout Planner</div><div class="row-sub">Custom fitness plans</div></div>
-          <div class="row-arrow">›</div>
-        </div>
-        <div class="row-card" onclick="openTool('Travel Planner','✈️')">
-          <div class="row-ico" style="background:#f59e0b20">✈️</div>
-          <div class="row-info"><div class="row-title">Travel Planner</div><div class="row-sub">Itineraries in seconds</div></div>
-          <div class="row-arrow">›</div>
-        </div>
-        <div class="row-card" onclick="openTool('Dream Interpreter','😴')">
-          <div class="row-ico" style="background:#ec489920">😴</div>
-          <div class="row-info"><div class="row-title">Dream Interpreter</div><div class="row-sub">What your dreams mean</div></div>
-          <div class="row-arrow">›</div>
-        </div>
-        <div class="row-card" onclick="openTool('Lie Detector','🕵️')">
-          <div class="row-ico" style="background:#ef444420">🕵️</div>
-          <div class="row-info"><div class="row-title">Scam Detector</div><div class="row-sub">Detect fake messages & reviews</div></div>
-          <div class="row-arrow">›</div>
-        </div>
-        <div class="row-card" onclick="openTool('Mood AI','🌈')">
-          <div class="row-ico" style="background:#06b6d420">🌈</div>
-          <div class="row-info"><div class="row-title">Mood AI</div><div class="row-sub">Output changes with your mood</div></div>
-          <div class="row-arrow">›</div>
-        </div>
-      </div>
-
-    </div><!-- /content -->
-  </div><!-- /main-area -->
-
-  <!-- ════════ PLAYER BAR ════════ -->
-  <div class="player-bar">
-    <div class="now-using">
-      <div class="now-ico" id="nowIco">✍</div>
-      <div>
-        <div class="now-label">Currently using</div>
-        <div class="now-name" id="nowName">Summarizer Pro</div>
-        <div class="now-cat" id="nowCat">Text AI</div>
-      </div>
-    </div>
-    <div class="player-center">
-      <!-- Shared Audio Player -->
-      <div id="audioPlayerContainer" style="display:none; align-items:center; gap:12px; margin-right:20px; background:rgba(255,255,255,0.05); padding:6px 16px; border-radius:100px; border:1px solid rgba(255,255,255,0.1);">
-        <button onclick="toggleAudio()" id="playBtn" style="background:none; border:none; color:#fff; cursor:pointer; font-size:16px;">▶</button>
-        <div style="display:flex; flex-direction:column; gap:2px;">
-          <div id="playerSongTitle" style="font-size:11px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:120px;">Song Title</div>
-          <div style="display:flex; align-items:center; gap:6px;">
-            <input type="range" id="audioProgress" value="0" step="1" style="width:80px; height:3px; accent-color:#ec4899; cursor:pointer;">
-            <span id="audioTime" style="font-size:9px; color:var(--text3);">0:00</span>
+    <!-- CHAT — Large Feature (8 cols) -->
+    <div class="col-span-12 md:col-span-8 group relative overflow-hidden rounded-2xl bg-[#131313] card-glow inner-glow cursor-pointer" data-cat="Text" onclick="openTool('AI Chatbot','💬')">
+      <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-transparent"></div>
+      <div class="p-7 h-[340px] flex flex-col justify-between relative z-10">
+        <div class="flex justify-between items-start">
+          <span class="material-symbols-outlined text-4xl text-cyan-400" style="font-variation-settings:'FILL' 1">forum</span>
+          <div class="flex gap-2">
+            <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-[10px] font-bold tracking-widest uppercase border border-cyan-500/20">Live</span>
+            <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-[10px] font-bold tracking-widest uppercase">HOT</span>
           </div>
+        </div>
+        <div>
+          <h3 class="text-3xl font-black tracking-tight mb-2 uppercase">AI Chat</h3>
+          <p class="text-white/40 text-sm max-w-sm mb-5">Conversational LLM with emotional context awareness, multi-modal memory, and blazing speed.</p>
+          <button class="flex items-center gap-2 text-cyan-400 font-bold text-xs uppercase tracking-widest hover:gap-4 transition-all">
+            Launch Console <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+      <div class="absolute right-0 bottom-0 w-2/5 h-2/3 bg-gradient-to-tl from-cyan-500/10 to-transparent rounded-tl-3xl opacity-60 group-hover:opacity-100 transition-opacity"></div>
+    </div>
+
+    <!-- PRODUCTIVITY (4 cols) -->
+    <div class="col-span-12 md:col-span-4 group relative overflow-hidden rounded-2xl bg-[#1a1a1a] card-glow inner-glow cursor-pointer" data-cat="Productivity" onclick="openTool('Productivity','📊')">
+      <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-transparent"></div>
+      <div class="p-7 h-[340px] flex flex-col justify-between relative z-10">
+        <span class="material-symbols-outlined text-4xl text-emerald-400">bolt</span>
+        <div>
+          <h3 class="text-2xl font-black tracking-tight mb-2 uppercase">Productivity</h3>
+          <p class="text-white/40 text-xs mb-5">Workflow automation, code assistant and cognitive offloading tools.</p>
+          <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+            <div class="h-full bg-emerald-500 w-2/3 rounded-full"></div>
+          </div>
+          <p class="text-white/20 text-[10px] mt-2">Mistral Small 4 · High Reasoning</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESEARCH (4 cols) -->
+    <div class="col-span-12 md:col-span-4 group relative overflow-hidden rounded-2xl bg-[#131313] card-glow inner-glow cursor-pointer" data-cat="Research" onclick="openTool('Research AI','🔬')">
+      <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-transparent"></div>
+      <div class="p-7 h-[260px] flex flex-col justify-between relative z-10">
+        <span class="material-symbols-outlined text-4xl text-purple-400">psychology</span>
+        <div>
+          <h3 class="text-2xl font-black tracking-tight mb-1 uppercase">Research</h3>
+          <p class="text-white/40 text-xs">Deep data synthesis, file ingestion and whitepaper summarization.</p>
+          <span class="mt-3 inline-block px-2 py-1 rounded-full bg-blue-500/10 text-blue-400 text-[10px] font-bold tracking-widest uppercase border border-blue-500/20">RAG · Embeddings</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMAGE GEN (4 cols) -->
+    <div class="col-span-12 md:col-span-4 group relative overflow-hidden rounded-2xl bg-[#1a1a1a] card-glow inner-glow cursor-pointer" data-cat="Image" onclick="openTool('Image Generator','🖼️')">
+      <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-transparent"></div>
+      <div class="p-7 h-[260px] flex flex-col justify-between relative z-10">
+        <span class="material-symbols-outlined text-4xl text-amber-400">palette</span>
+        <div>
+          <h3 class="text-2xl font-black tracking-tight mb-1 uppercase">Image Gen</h3>
+          <p class="text-white/40 text-xs">High-fidelity diffusion models for visual architecture.</p>
+          <span class="mt-3 inline-block px-2 py-1 rounded-full bg-amber-500/10 text-amber-400 text-[10px] font-bold tracking-widest uppercase border border-amber-500/20">FLUX.1-Schnell</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MUSIC (4 cols) -->
+    <div class="col-span-12 md:col-span-4 group relative overflow-hidden rounded-2xl bg-[#131313] card-glow inner-glow cursor-pointer" data-cat="Audio" onclick="openTool('Music & Voice','🎵')">
+      <div class="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-transparent to-transparent"></div>
+      <div class="p-7 h-[260px] flex flex-col justify-between relative z-10">
+        <span class="material-symbols-outlined text-4xl text-pink-400">music_note</span>
+        <div>
+          <h3 class="text-2xl font-black tracking-tight mb-1 uppercase">Music</h3>
+          <p class="text-white/40 text-xs">Search 80M+ tracks, generate lyrics, Suno prompts and compositions.</p>
+          <span class="mt-3 inline-block px-2 py-1 rounded-full bg-pink-500/10 text-pink-400 text-[10px] font-bold tracking-widest uppercase border border-pink-500/20">JioSaavn · Kimi K2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO TOOLS (6 cols) -->
+    <div class="col-span-12 md:col-span-6 group relative overflow-hidden rounded-2xl bg-[#1a1a1a] card-glow inner-glow cursor-pointer" data-cat="Video" onclick="openTool('Video AI','🎬')">
+      <div class="absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-transparent to-transparent"></div>
+      <div class="p-7 h-[260px] flex flex-col justify-between relative z-10">
+        <span class="material-symbols-outlined text-4xl text-cyan-300">movie_filter</span>
+        <div>
+          <h3 class="text-2xl font-black tracking-tight mb-1 uppercase">Video Tools</h3>
+          <p class="text-white/40 text-xs max-w-xs">YouTube transcript analysis, script writing, scene planning and hook generation.</p>
+          <span class="mt-3 inline-block px-2 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-[10px] font-bold tracking-widest uppercase border border-cyan-500/20">NEW</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CREATIVE WRITING (6 cols) -->
+    <div class="col-span-12 md:col-span-6 group relative overflow-hidden rounded-2xl bg-[#131313] card-glow inner-glow cursor-pointer" data-cat="Text" onclick="openTool('AI Chatbot','✍')">
+      <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 via-transparent to-transparent"></div>
+      <div class="p-7 h-[260px] flex flex-col justify-between relative z-10">
+        <span class="material-symbols-outlined text-4xl text-red-400">auto_stories</span>
+        <div>
+          <h3 class="text-2xl font-black tracking-tight mb-1 uppercase">Creative Writing</h3>
+          <p class="text-white/40 text-xs max-w-xs">Narrative engine for screenwriting, poetry, emails and lore building.</p>
+          <span class="mt-3 inline-block px-2 py-1 rounded-full bg-red-500/10 text-red-400 text-[10px] font-bold tracking-widest uppercase border border-red-500/20">LLaMA 3.1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPECIALISED ROW -->
+    <div class="col-span-12">
+      <p class="text-white/30 text-[10px] tracking-widest uppercase font-bold mb-3">Specialized Tools</p>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div class="group col-span-1 relative overflow-hidden rounded-xl bg-[#131313] card-glow inner-glow cursor-pointer p-4 flex flex-col gap-3" data-cat="Specialized" onclick="openTool('Recipe Generator','🍽️')">
+          <span class="text-2xl">🍽️</span>
+          <div><div class="text-sm font-bold">Recipe Gen</div><div class="text-white/30 text-xs">From ingredients</div></div>
+        </div>
+        <div class="group col-span-1 relative overflow-hidden rounded-xl bg-[#1a1a1a] card-glow inner-glow cursor-pointer p-4 flex flex-col gap-3" data-cat="Specialized" onclick="openTool('Workout Planner','🏋️')">
+          <span class="text-2xl">🏋️</span>
+          <div><div class="text-sm font-bold">Workout</div><div class="text-white/30 text-xs">Custom plans</div></div>
+        </div>
+        <div class="group col-span-1 relative overflow-hidden rounded-xl bg-[#131313] card-glow inner-glow cursor-pointer p-4 flex flex-col gap-3" data-cat="Specialized" onclick="openTool('Travel Planner','✈️')">
+          <span class="text-2xl">✈️</span>
+          <div><div class="text-sm font-bold">Travel</div><div class="text-white/30 text-xs">Itineraries</div></div>
+        </div>
+        <div class="group col-span-1 relative overflow-hidden rounded-xl bg-[#1a1a1a] card-glow inner-glow cursor-pointer p-4 flex flex-col gap-3" data-cat="Specialized" onclick="openTool('Dream Interpreter','😴')">
+          <span class="text-2xl">😴</span>
+          <div><div class="text-sm font-bold">Dream AI</div><div class="text-white/30 text-xs">Interpretation</div></div>
+        </div>
+        <div class="group col-span-1 relative overflow-hidden rounded-xl bg-[#131313] card-glow inner-glow cursor-pointer p-4 flex flex-col gap-3" data-cat="Specialized" onclick="openTool('Scam Detector','🕵️')">
+          <span class="text-2xl">🕵️</span>
+          <div><div class="text-sm font-bold">Scam Detect</div><div class="text-white/30 text-xs">Fraud analysis</div></div>
+        </div>
+        <div class="group col-span-1 relative overflow-hidden rounded-xl bg-[#1a1a1a] card-glow inner-glow cursor-pointer p-4 flex flex-col gap-3" data-cat="Specialized" onclick="openTool('Mood AI','🌈')">
+          <span class="text-2xl">🌈</span>
+          <div><div class="text-sm font-bold">Mood AI</div><div class="text-white/30 text-xs">Adaptive output</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /bento-grid -->
+</main>
+
+<!-- ═══════ BOTTOM SHELL ═══════ -->
+<div class="fixed bottom-4 left-3 right-3 z-50 max-w-xl mx-auto">
+  <!-- Mini Player -->
+  <div id="miniPlayer" class="bg-zinc-900/50 backdrop-blur-3xl rounded-t-2xl px-4 py-3 flex items-center justify-between border border-b-0 border-white/5 mx-4">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-lg" id="nowIco">✦</div>
+      <div>
+        <p class="text-[10px] font-bold tracking-widest text-cyan-400 uppercase">Currently Active</p>
+        <p class="text-xs text-white font-semibold" id="nowName">AI Chatbot</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <!-- Audio player (shown when music playing) -->
+      <div id="audioPlayerContainer" style="display:none" class="flex items-center gap-2">
+        <button onclick="toggleAudio()" id="playBtn" class="text-white/60 text-sm bg-none border-none cursor-pointer">▶</button>
+        <div>
+          <div id="playerSongTitle" class="text-[10px] font-semibold text-white/70 max-w-[80px] truncate">Song</div>
+          <input type="range" id="audioProgress" value="0" step="1" class="w-16 h-0.5 accent-pink-400 cursor-pointer"/>
+          <span id="audioTime" class="text-[9px] text-white/30 ml-1">0:00</span>
         </div>
         <audio id="mainAudio" ontimeupdate="updateProgress()" onended="onAudioEnded()"></audio>
       </div>
-      
-      <button class="ctrl-btn" onclick="showToast('⬅ Going back…')">← Back</button>
-      <button class="ctrl-btn primary" onclick="routeToModal(document.getElementById('nowName').textContent)">Open Tool ↗</button>
-      <button class="ctrl-btn" id="saveToolBtn" onclick="toggleFavorite()">Save ♡</button>
-    </div>
-    <div class="credits-wrap">
-      <div class="credit-orb"></div>
-      <span class="credits-text">Credits:</span>
-      <span class="credits-count">48 remaining</span>
+      <button onclick="toggleFavorite()" id="saveToolBtn" class="text-white/40 text-xs hover:text-pink-400 transition-colors">♡ Save</button>
+      <button onclick="routeToModal(document.getElementById('nowName').textContent)" class="bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full hover:bg-cyan-500/20 transition">Open ↗</button>
     </div>
   </div>
+  <!-- Bottom Nav -->
+  <nav class="bg-zinc-900/70 backdrop-blur-3xl rounded-2xl shadow-2xl shadow-cyan-500/5 h-16 px-2 flex justify-around items-center border border-white/5 overflow-hidden">
+    <a href="#" class="flex flex-col items-center justify-center bg-cyan-500/15 text-cyan-400 rounded-full py-2 px-4 transition-all" onclick="setBottomNav(this)">
+      <span class="material-symbols-outlined text-xl">explore</span>
+      <span class="text-[9px] font-bold tracking-wider uppercase mt-0.5">Discover</span>
+    </a>
+    <a href="#" class="flex flex-col items-center justify-center text-white/30 py-2 px-4 hover:text-cyan-300 transition-colors" onclick="setBottomNav(this)">
+      <span class="material-symbols-outlined text-xl">forum</span>
+      <span class="text-[9px] font-bold tracking-wider uppercase mt-0.5">Chat</span>
+    </a>
+    <a href="#" class="flex flex-col items-center justify-center text-white/30 py-2 px-4 hover:text-cyan-300 transition-colors" onclick="openTool('Image Generator','🖼️'); setBottomNav(this)">
+      <span class="material-symbols-outlined text-xl">palette</span>
+      <span class="text-[9px] font-bold tracking-wider uppercase mt-0.5">Create</span>
+    </a>
+    <a href="#" class="flex flex-col items-center justify-center text-white/30 py-2 px-4 hover:text-cyan-300 transition-colors" onclick="openTool('Music & Voice','🎵'); setBottomNav(this)">
+      <span class="material-symbols-outlined text-xl">music_note</span>
+      <span class="text-[9px] font-bold tracking-wider uppercase mt-0.5">Music</span>
+    </a>
+    <a href="#" class="flex flex-col items-center justify-center text-white/30 py-2 px-4 hover:text-cyan-300 transition-colors" onclick="setBottomNav(this)">
+      <span class="material-symbols-outlined text-xl">settings</span>
+      <span class="text-[9px] font-bold tracking-wider uppercase mt-0.5">Settings</span>
+    </a>
+  </nav>
+</div>
 
-  <!-- ════════ MOBILE BOTTOM NAV ════════ -->
-  <div class="mobile-nav">
-    <div class="m-nav-item active" onclick="setNav(this,'Home')"><span>⊞</span><span>Home</span></div>
-    <div class="m-nav-item" onclick="setNav(this,'Discover')"><span>🔍</span><span>Discover</span></div>
-    <div class="m-nav-item" onclick="setNav(this,'Categories')"><span>🌀</span><span>Tools</span></div>
-    <div class="m-nav-item" onclick="setNav(this,'My Favorites')"><span>★</span><span>Favs</span></div>
-    <div class="m-nav-item" onclick="setNav(this,'History')"><span>◷</span><span>History</span></div>
-  </div>
+<!-- ══════════════════════════════════════ -->
+<!--           ALL MODALS BELOW           -->
+<!-- ══════════════════════════════════════ -->
 
-</div><!-- /app-shell -->
-
-<!-- ════════ CHAT MODAL ════════ -->
+<!-- CHAT MODAL -->
 <div class="modal-overlay" id="chatModal">
   <div class="modal-content">
     <div class="modal-header">
@@ -846,7 +351,7 @@
       <button class="close-btn" onclick="closeChatModal()">✕</button>
     </div>
     <div class="chat-feed" id="chatFeed">
-      <div class="chat-bubble ai">Hello! I am your AI assistant. How can I help you today?</div>
+      <div class="chat-bubble ai">Hello! I am your AIHUB assistant. How can I help you today?</div>
     </div>
     <div class="input-area">
       <div class="input-wrapper">
@@ -857,53 +362,50 @@
   </div>
 </div>
 
-<!-- ════════ PROD MODAL (Coding) ════════ -->
+<!-- PRODUCTIVITY MODAL -->
 <div class="modal-overlay" id="prodModal">
-  <div class="modal-content" style="max-width: 900px; border-color: rgba(34, 197, 94, 0.4);">
-    <div class="modal-header" style="background: rgba(34, 197, 94, 0.05);">
-      <div class="modal-title"><span class="modal-title-icon" style="background: #22c55e; -webkit-background-clip: padding-box; background-clip: padding-box;">📊</span> AI Code Assistant</div>
+  <div class="modal-content" style="max-width:900px;border-color:rgba(34,197,94,0.4)">
+    <div class="modal-header" style="background:rgba(34,197,94,0.05)">
+      <div class="modal-title"><span class="modal-title-icon" style="background:#22c55e;-webkit-background-clip:padding-box">📊</span> AI Code Assistant</div>
       <button class="close-btn" onclick="closeProdModal()">✕</button>
     </div>
-    <div class="chat-feed" id="prodFeed" style="background: rgba(0,0,0,0.1);">
-      <div class="chat-bubble ai" style="border-color: rgba(34, 197, 94, 0.1);">Welcome. Share your complex coding, math, or logic problems here.</div>
+    <div class="chat-feed" id="prodFeed" style="background:rgba(0,0,0,0.1)">
+      <div class="chat-bubble ai">Welcome. Share your complex coding, math, or logic problems here.</div>
     </div>
-    <div class="input-area" style="background: rgba(34, 197, 94, 0.01);">
-      <div class="input-wrapper" style="border-color: rgba(34, 197, 94, 0.2);" id="prodInputWrap">
+    <div class="input-area" style="background:rgba(34,197,94,0.01)">
+      <div class="input-wrapper" style="border-color:rgba(34,197,94,0.2)" id="prodInputWrap">
         <textarea id="prodInput" class="input-textarea" rows="1" placeholder="Paste code or queries..."></textarea>
-        <button class="send-btn" onclick="sendProdMessage()" style="background: #22c55e;">↗</button>
+        <button class="send-btn" onclick="sendProdMessage()" style="background:#22c55e">↗</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ════════ RESEARCH MODAL (Files & Ingestion) ════════ -->
+<!-- RESEARCH MODAL -->
 <div class="modal-overlay" id="researchModal">
-  <div class="modal-content" style="max-width: 950px; border-color: rgba(59, 130, 246, 0.4);">
-    <div class="modal-header" style="background: rgba(59, 130, 246, 0.05);">
-      <div class="modal-title"><span class="modal-title-icon" style="background: #3b82f6; -webkit-background-clip: padding-box; background-clip: padding-box;">🔬</span> Research Lab</div>
+  <div class="modal-content" style="max-width:950px;border-color:rgba(59,130,246,0.4)">
+    <div class="modal-header" style="background:rgba(59,130,246,0.05)">
+      <div class="modal-title"><span class="modal-title-icon" style="background:#3b82f6;-webkit-background-clip:padding-box">🔬</span> Research Lab</div>
       <button class="close-btn" onclick="closeResearchModal()">✕</button>
     </div>
-    <div class="chat-feed" id="researchFeed" style="background: rgba(0,0,0,0.2);">
-      <div class="chat-bubble ai" style="border-color: rgba(59, 130, 246, 0.1);">Welcome to the Research Lab. Upload a file or paste a document below to get detailed insights.</div>
+    <div class="chat-feed" id="researchFeed" style="background:rgba(0,0,0,0.2)">
+      <div class="chat-bubble ai">Welcome to the Research Lab. Upload a file or paste a document below to get detailed insights.</div>
     </div>
-    
-    <!-- FILE PICKER AREA -->
-    <div class="ingest-area" style="padding: 10px 20px; background: rgba(59,130,246,0.05); border-top: 1px solid rgba(59,130,246,0.1); display: flex; gap: 10px; align-items: center;">
-      <input type="file" id="researchFileInput" style="display:none" onchange="handleResearchFileUpload(this)">
-      <button onclick="document.getElementById('researchFileInput').click()" style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; white-space: nowrap; font-weight: 600;">📁 Upload from my files</button>
-      <div id="researchFileName" style="font-size: 12px; color: var(--text3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">No file selected</div>
+    <div class="ingest-area" style="padding:10px 20px;background:rgba(59,130,246,0.05);border-top:1px solid rgba(59,130,246,0.1);display:flex;gap:10px;align-items:center">
+      <input type="file" id="researchFileInput" style="display:none" onchange="handleResearchFileUpload(this)"/>
+      <button onclick="document.getElementById('researchFileInput').click()" style="background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;border:none;padding:10px 15px;border-radius:8px;cursor:pointer;white-space:nowrap;font-weight:600">📁 Upload File</button>
+      <div id="researchFileName" style="font-size:12px;color:var(--text3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">No file selected</div>
     </div>
-
-    <div class="input-area" style="background: rgba(59, 130, 246, 0.02);">
-      <div class="input-wrapper" style="border-color: rgba(59, 130, 246, 0.2);">
+    <div class="input-area" style="background:rgba(59,130,246,0.02)">
+      <div class="input-wrapper" style="border-color:rgba(59,130,246,0.2)">
         <textarea id="researchInput" class="input-textarea" rows="1" placeholder="Paste text or ask about the uploaded file..."></textarea>
-        <button class="send-btn" onclick="sendResearchMessage()" style="background: #3b82f6;">↗</button>
+        <button class="send-btn" onclick="sendResearchMessage()" style="background:#3b82f6">↗</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ════════ IMAGE MODAL ════════ -->
+<!-- IMAGE MODAL -->
 <div class="modal-overlay" id="imageModal">
   <div class="modal-content">
     <div class="modal-header">
@@ -915,122 +417,102 @@
         <div class="empty-icon">🖼️</div>
         <div>Enter a prompt below to generate a masterpiece</div>
       </div>
-      <div class="image-loader" id="imageLoader" style="display:none;">
+      <div class="image-loader" id="imageLoader" style="display:none">
         <div class="spinner"></div>
-        <div style="color:var(--text3); font-size:13px; font-weight:500;">Synthesizing...</div>
+        <div style="color:var(--text3);font-size:13px;font-weight:500">Synthesizing...</div>
       </div>
-      <img id="generatedImage" class="generated-image" src="" alt="Generated AI Image" />
+      <img id="generatedImage" class="generated-image" src="" alt="Generated AI Image"/>
     </div>
     <div class="input-area">
       <div class="input-wrapper">
-        <input type="text" id="imageInput" class="input-textarea" style="height:44px;" placeholder="Describe what you want to see..." />
+        <input type="text" id="imageInput" class="input-textarea" style="height:44px" placeholder="Describe what you want to see..."/>
         <button class="send-btn" onclick="sendImagePrompt()">✨</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ════════ VIDEO MODAL (Toolkit) ════════ -->
+<!-- VIDEO MODAL -->
 <div class="modal-overlay" id="videoModal">
-  <div class="modal-content" style="border-color: rgba(34,197,94,0.35); max-width:900px;">
-    <div class="modal-header" style="background:rgba(34,197,94,0.04);">
-      <div class="modal-title">
-        <span class="modal-title-icon" style="background:linear-gradient(135deg,#22c55e,#16a34a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">🎬</span>
-        Video AI Toolkit
-      </div>
+  <div class="modal-content" style="border-color:rgba(34,197,94,0.35);max-width:900px">
+    <div class="modal-header" style="background:rgba(34,197,94,0.04)">
+      <div class="modal-title"><span style="background:linear-gradient(135deg,#22c55e,#16a34a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">🎬</span> Video AI Toolkit</div>
       <button class="close-btn" onclick="closeVideoModal()">✕</button>
     </div>
-    <!-- Tool Tabs -->
-    <div style="display:flex;gap:8px;padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.06);flex-wrap:wrap;">
+    <div style="display:flex;gap:8px;padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.06);flex-wrap:wrap">
       <button class="vtab active" onclick="setVideoToolTab(this,'transcript')">📋 YouTube Transcript</button>
       <button class="vtab" onclick="setVideoToolTab(this,'creative')">📝 Creative Tools</button>
       <button class="vtab" onclick="setVideoToolTab(this,'directory')">🌐 AI Video Tools</button>
     </div>
-    
-    <!-- 1. TRANSCRIPT SECTION -->
-    <div id="vTool-transcript" class="vtool-section" style="display:block; flex:1; overflow-y:auto; padding:20px;">
-      <div style="margin-bottom:20px; background:rgba(255,255,255,0.03); padding:20px; border-radius:12px; border:1px solid rgba(255,255,255,0.05);">
-        <h3 style="font-size:15px; margin-bottom:10px;">Paste YouTube URL to Analyze</h3>
-        <p style="font-size:12px; color:var(--text3); margin-bottom:15px;">We'll extract the transcript and summarize it using AI.</p>
-        <div style="display:flex; gap:10px;">
-          <input type="text" id="ytUrlInput" placeholder="https://youtube.com/watch?v=..." style="flex:1; background:rgba(0,0,0,0.3); border:1px solid var(--border); border-radius:8px; padding:10px; color:#fff; outline:none;">
-          <button onclick="analyzeVideoTranscript()" style="background:#22c55e; border:none; color:#fff; padding:0 20px; border-radius:8px; cursor:pointer; font-weight:600;">Summarize</button>
+    <!-- Transcript -->
+    <div id="vTool-transcript" class="vtool-section" style="display:block;flex:1;overflow-y:auto;padding:20px">
+      <div style="margin-bottom:20px;background:rgba(255,255,255,0.03);padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.05)">
+        <h3 style="font-size:15px;margin-bottom:10px">Paste YouTube URL to Analyze</h3>
+        <p style="font-size:12px;color:var(--text3);margin-bottom:15px">We'll extract the transcript and summarize it using AI.</p>
+        <div style="display:flex;gap:10px">
+          <input type="text" id="ytUrlInput" placeholder="https://youtube.com/watch?v=..." style="flex:1;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:8px;padding:10px;color:#fff;outline:none"/>
+          <button onclick="analyzeVideoTranscript()" style="background:#22c55e;border:none;color:#fff;padding:0 20px;border-radius:8px;cursor:pointer;font-weight:600">Summarize</button>
         </div>
       </div>
-      <div id="videoAnalysisResult" style="display:none; line-height:1.6; font-size:14px; color:var(--text2); background:rgba(0,0,0,0.2); padding:20px; border-radius:12px;"></div>
+      <div id="videoAnalysisResult" style="display:none;line-height:1.6;font-size:14px;color:var(--text2);background:rgba(0,0,0,0.2);padding:20px;border-radius:12px"></div>
     </div>
-
-    <!-- 2. CREATIVE SECTION (Original logic) -->
-    <div id="vTool-creative" class="vtool-section" style="display:none; flex:1; flex-direction:column; overflow:hidden;">
-      <div style="display:flex;gap:8px;padding:8px 20px;border-bottom:1px solid rgba(255,255,255,0.05);">
+    <!-- Creative -->
+    <div id="vTool-creative" class="vtool-section" style="display:none;flex:1;flex-direction:column;overflow:hidden">
+      <div style="display:flex;gap:8px;padding:8px 20px;border-bottom:1px solid rgba(255,255,255,0.05)">
         <button class="vtab-sm active" onclick="setVideoTab(this,'script','📝 Script Writer','Write a video script about...')">Script</button>
         <button class="vtab-sm" onclick="setVideoTab(this,'scene','🎬 Scene Planner','Plan scenes for a video about...')">Scene</button>
         <button class="vtab-sm" onclick="setVideoTab(this,'hook','🔥 Hook Generator','My video is about...')">Hook</button>
       </div>
-      <div class="chat-feed" id="videoFeed" style="flex:1;"></div>
-      <div class="input-area" style="background:rgba(34,197,94,0.02);border-top-color:rgba(34,197,94,0.1);">
-        <div class="input-wrapper" style="border-color:rgba(34,197,94,0.25);">
+      <div class="chat-feed" id="videoFeed" style="flex:1"></div>
+      <div class="input-area" style="background:rgba(34,197,94,0.02);border-top-color:rgba(34,197,94,0.1)">
+        <div class="input-wrapper" style="border-color:rgba(34,197,94,0.25)">
           <textarea id="videoInput" class="input-textarea" rows="1" placeholder="Describe your idea..."></textarea>
-          <button class="send-btn" onclick="sendVideoCreative()" style="background:#22c55e;">↗</button>
+          <button class="send-btn" onclick="sendVideoCreative()" style="background:#22c55e">↗</button>
         </div>
       </div>
     </div>
-
-    <!-- 3. DIRECTORY SECTION -->
-    <div id="vTool-directory" class="vtool-section" style="display:none; flex:1; overflow-y:auto; padding:20px;">
-      <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;">
-        <a href="https://runwayml.com" target="_blank" class="row-card"><div class="row-ico" style="background:#333;">🎥</div><div class="row-info"><div class="row-title">RunwayML</div><div class="row-sub">Gen-2/Gen-3 Video Generation</div></div></a>
-        <a href="https://pika.art" target="_blank" class="row-card"><div class="row-ico" style="background:#555;">🐰</div><div class="row-info"><div class="row-title">Pika Labs</div><div class="row-sub">Cinematic Video AI</div></div></a>
-        <a href="https://lumalabs.ai" target="_blank" class="row-card"><div class="row-ico" style="background:#444;">✨</div><div class="row-info"><div class="row-title">Luma Dream Machine</div><div class="row-sub">Realistic Video Gen</div></div></a>
-        <a href="https://kaiber.ai" target="_blank" class="row-card"><div class="row-ico" style="background:#222;">🔥</div><div class="row-info"><div class="row-title">Kaiber AI</div><div class="row-sub">Audio-Reactive Animation</div></div></a>
+    <!-- Directory -->
+    <div id="vTool-directory" class="vtool-section" style="display:none;flex:1;overflow-y:auto;padding:20px">
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+        <a href="https://runwayml.com" target="_blank" class="row-card"><div class="row-ico" style="background:#333">🎥</div><div class="row-info"><div class="row-title">RunwayML</div><div class="row-sub">Gen-2/Gen-3 Video</div></div></a>
+        <a href="https://pika.art" target="_blank" class="row-card"><div class="row-ico" style="background:#555">🐰</div><div class="row-info"><div class="row-title">Pika Labs</div><div class="row-sub">Cinematic Video AI</div></div></a>
+        <a href="https://lumalabs.ai" target="_blank" class="row-card"><div class="row-ico" style="background:#444">✨</div><div class="row-info"><div class="row-title">Luma Dream Machine</div><div class="row-sub">Realistic Video Gen</div></div></a>
+        <a href="https://kaiber.ai" target="_blank" class="row-card"><div class="row-ico" style="background:#222">🔥</div><div class="row-info"><div class="row-title">Kaiber AI</div><div class="row-sub">Audio-Reactive Animation</div></div></a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ════════ MUSIC MODAL (Search & Streaming) ════════ -->
+<!-- MUSIC MODAL -->
 <div class="modal-overlay" id="musicModal">
-  <div class="modal-content" style="border-color:rgba(236,72,153,0.35);max-width:950px;">
-    <div class="modal-header" style="background:rgba(236,72,153,0.04);">
-      <div class="modal-title">
-        <span style="background:linear-gradient(135deg,#ec4899,#be185d);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">🎵</span>
-        Music AI Universe
-      </div>
+  <div class="modal-content" style="border-color:rgba(236,72,153,0.35);max-width:950px">
+    <div class="modal-header" style="background:rgba(236,72,153,0.04)">
+      <div class="modal-title"><span style="background:linear-gradient(135deg,#ec4899,#be185d);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">🎵</span> Music AI Universe</div>
       <button class="close-btn" onclick="closeMusicModal()">✕</button>
     </div>
-
-    <!-- Search Header -->
-    <div style="padding:20px; border-bottom:1px solid rgba(255,255,255,0.06); display:flex; gap:12px;">
-      <div class="input-wrapper" style="flex:1; border-color:rgba(236,72,153,0.2);">
-        <input type="text" id="musicSearchInput" class="input-textarea" style="height:44px;" placeholder="Search for any song, artist, or language (e.g. Shape of You, जय हिन्द)...">
-        <button class="send-btn" onclick="searchMusic()" style="background:#ec4899;">🔍</button>
+    <div style="padding:20px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;gap:12px">
+      <div class="input-wrapper" style="flex:1;border-color:rgba(236,72,153,0.2)">
+        <input type="text" id="musicSearchInput" class="input-textarea" style="height:44px" placeholder="Search for any song, artist or language…"/>
+        <button class="send-btn" onclick="searchMusic()" style="background:#ec4899">🔍</button>
       </div>
     </div>
-
-    <div style="display:flex; flex:1; overflow:hidden;">
-      <!-- Main Content -->
-      <div style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
-        <!-- Results Grid -->
-        <div id="musicResultsGrid" style="flex:1; overflow-y:auto; padding:20px; display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:16px;">
-          <div class="empty-state" style="grid-column: 1/-1;">
-            <div class="empty-icon">🎵</div>
-            <div>Search for your favorite tracks across all languages</div>
-          </div>
+    <div style="display:flex;flex:1;overflow:hidden">
+      <div style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+        <div id="musicResultsGrid" style="flex:1;overflow-y:auto;padding:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:16px">
+          <div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">🎵</div><div>Search for your favourite tracks</div></div>
         </div>
       </div>
-      
-      <!-- Creative Tools Sidebar (Compact) -->
-      <div style="width:280px; border-left:1px solid rgba(255,255,255,0.06); display:flex; flex-direction:column; background:rgba(255,255,255,0.01);">
-        <div style="padding:12px 18px; font-size:12px; font-weight:700; color:var(--text3); text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid rgba(255,255,255,0.05);">Creative AI Tools</div>
-        <div style="padding:10px; display:flex; flex-direction:column; gap:6px;">
-          <button class="mtab active" style="text-align:left; gap:10px;" onclick="switchMusicTool('lyrics')">🎵 Write Lyrics</button>
-          <button class="mtab" style="text-align:left; gap:10px;" onclick="switchMusicTool('music_prompt')">🎼 Music Prompts</button>
+      <div style="width:280px;border-left:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;background:rgba(255,255,255,0.01)">
+        <div style="padding:12px 18px;font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(255,255,255,0.05)">Creative AI Tools</div>
+        <div style="padding:10px;display:flex;flex-direction:column;gap:6px">
+          <button class="mtab active" style="text-align:left;gap:10px" onclick="switchMusicTool('lyrics')">🎵 Write Lyrics</button>
+          <button class="mtab" style="text-align:left;gap:10px" onclick="switchMusicTool('music_prompt')">🎼 Music Prompts</button>
         </div>
-        <div class="chat-feed" id="musicFeed" style="flex:1; font-size:12px; background:transparent;"></div>
-        <div class="input-area" style="padding:12px; background:rgba(236,72,153,0.02);">
-          <div class="input-wrapper" style="border-color:rgba(236,72,153,0.2);">
-            <textarea id="musicInput" class="input-textarea" rows="2" placeholder="Describe lyrics/prompts..." style="font-size:12px;"></textarea>
-            <button class="send-btn" onclick="sendMusicCreative()" style="background:#ec4899; width:34px; height:34px;">↗</button>
+        <div class="chat-feed" id="musicFeed" style="flex:1;font-size:12px;background:transparent"></div>
+        <div class="input-area" style="padding:12px;background:rgba(236,72,153,0.02)">
+          <div class="input-wrapper" style="border-color:rgba(236,72,153,0.2)">
+            <textarea id="musicInput" class="input-textarea" rows="2" placeholder="Describe lyrics/prompts..." style="font-size:12px"></textarea>
+            <button class="send-btn" onclick="sendMusicCreative()" style="background:#ec4899;width:34px;height:34px">↗</button>
           </div>
         </div>
       </div>
@@ -1038,145 +520,77 @@
   </div>
 </div>
 
-<!-- ════════ SPECIALIZED MODALS ════════ -->
-<!-- Recipe Generator -->
+<!-- SPECIALIZED MODALS -->
 <div class="modal-overlay" id="recipeModal">
-  <div class="modal-content" style="border-color:rgba(124,92,252,0.35);">
-    <div class="modal-header">
-      <div class="modal-title"><span>🍽️</span> Recipe Generator</div>
-      <button class="close-btn" onclick="closeSpecModal('recipeModal')">✕</button>
-    </div>
-    <div class="chat-feed" id="recipeFeed">
-      <div class="chat-bubble ai">🍽️ Tell me what ingredients you have and I'll create a delicious recipe! e.g. "chicken, garlic, tomatoes, pasta"</div>
-    </div>
-    <div class="input-area">
-      <div class="input-wrapper">
-        <textarea id="recipeInput" class="input-textarea" rows="1" placeholder="List your ingredients or describe the dish you want..."></textarea>
-        <button class="send-btn" onclick="sendSpecialized('recipe','recipeInput','recipeFeed')">↗</button>
-      </div>
-    </div>
+  <div class="modal-content" style="border-color:rgba(124,92,252,0.35)">
+    <div class="modal-header"><div class="modal-title"><span>🍽️</span> Recipe Generator</div><button class="close-btn" onclick="closeSpecModal('recipeModal')">✕</button></div>
+    <div class="chat-feed" id="recipeFeed"><div class="chat-bubble ai">🍽️ Tell me what ingredients you have and I'll create a delicious recipe!</div></div>
+    <div class="input-area"><div class="input-wrapper"><textarea id="recipeInput" class="input-textarea" rows="1" placeholder="List your ingredients..."></textarea><button class="send-btn" onclick="sendSpecialized('recipe','recipeInput','recipeFeed')">↗</button></div></div>
   </div>
 </div>
 
-<!-- Workout Planner -->
 <div class="modal-overlay" id="workoutModal">
-  <div class="modal-content" style="border-color:rgba(34,197,94,0.35);">
-    <div class="modal-header" style="background:rgba(34,197,94,0.04);">
-      <div class="modal-title"><span>🏋️</span> Workout Planner</div>
-      <button class="close-btn" onclick="closeSpecModal('workoutModal')">✕</button>
-    </div>
-    <div class="chat-feed" id="workoutFeed">
-      <div class="chat-bubble ai" style="border-color:rgba(34,197,94,0.15);">💪 Tell me your fitness goal, experience level, and available equipment and I'll craft a custom workout plan!</div>
-    </div>
-    <div class="input-area">
-      <div class="input-wrapper" style="border-color:rgba(34,197,94,0.25);">
-        <textarea id="workoutInput" class="input-textarea" rows="1" placeholder="e.g. Lose weight, beginner, home workout with dumbbells..."></textarea>
-        <button class="send-btn" onclick="sendSpecialized('workout','workoutInput','workoutFeed')" style="background:linear-gradient(135deg,#22c55e,#16a34a);">↗</button>
-      </div>
-    </div>
+  <div class="modal-content" style="border-color:rgba(34,197,94,0.35)">
+    <div class="modal-header" style="background:rgba(34,197,94,0.04)"><div class="modal-title"><span>🏋️</span> Workout Planner</div><button class="close-btn" onclick="closeSpecModal('workoutModal')">✕</button></div>
+    <div class="chat-feed" id="workoutFeed"><div class="chat-bubble ai" style="border-color:rgba(34,197,94,0.15)">💪 Tell me your fitness goal, experience level, and equipment!</div></div>
+    <div class="input-area"><div class="input-wrapper" style="border-color:rgba(34,197,94,0.25)"><textarea id="workoutInput" class="input-textarea" rows="1" placeholder="e.g. Lose weight, beginner, home workout…"></textarea><button class="send-btn" onclick="sendSpecialized('workout','workoutInput','workoutFeed')" style="background:linear-gradient(135deg,#22c55e,#16a34a)">↗</button></div></div>
   </div>
 </div>
 
-<!-- Travel Planner -->
 <div class="modal-overlay" id="travelModal">
-  <div class="modal-content" style="border-color:rgba(245,158,11,0.35);">
-    <div class="modal-header" style="background:rgba(245,158,11,0.04);">
-      <div class="modal-title"><span>✈️</span> Travel Planner</div>
-      <button class="close-btn" onclick="closeSpecModal('travelModal')">✕</button>
-    </div>
-    <div class="chat-feed" id="travelFeed">
-      <div class="chat-bubble ai" style="border-color:rgba(245,158,11,0.15);">✈️ Where do you want to go? Tell me your destination, trip duration, and travel style and I'll plan the perfect itinerary!</div>
-    </div>
-    <div class="input-area">
-      <div class="input-wrapper" style="border-color:rgba(245,158,11,0.25);">
-        <textarea id="travelInput" class="input-textarea" rows="1" placeholder="e.g. Tokyo, 7 days, budget traveler, love food & culture..."></textarea>
-        <button class="send-btn" onclick="sendSpecialized('travel','travelInput','travelFeed')" style="background:linear-gradient(135deg,#f59e0b,#d97706);">↗</button>
-      </div>
-    </div>
+  <div class="modal-content" style="border-color:rgba(245,158,11,0.35)">
+    <div class="modal-header" style="background:rgba(245,158,11,0.04)"><div class="modal-title"><span>✈️</span> Travel Planner</div><button class="close-btn" onclick="closeSpecModal('travelModal')">✕</button></div>
+    <div class="chat-feed" id="travelFeed"><div class="chat-bubble ai" style="border-color:rgba(245,158,11,0.15)">✈️ Where do you want to go? Tell me your destination and travel style!</div></div>
+    <div class="input-area"><div class="input-wrapper" style="border-color:rgba(245,158,11,0.25)"><textarea id="travelInput" class="input-textarea" rows="1" placeholder="e.g. Tokyo, 7 days, budget traveler…"></textarea><button class="send-btn" onclick="sendSpecialized('travel','travelInput','travelFeed')" style="background:linear-gradient(135deg,#f59e0b,#d97706)">↗</button></div></div>
   </div>
 </div>
 
-<!-- Dream Interpreter -->
 <div class="modal-overlay" id="dreamModal">
-  <div class="modal-content" style="border-color:rgba(139,92,246,0.35);">
-    <div class="modal-header" style="background:rgba(139,92,246,0.04);">
-      <div class="modal-title"><span>😴</span> Dream Interpreter</div>
-      <button class="close-btn" onclick="closeSpecModal('dreamModal')">✕</button>
-    </div>
-    <div class="chat-feed" id="dreamFeed">
-      <div class="chat-bubble ai" style="border-color:rgba(139,92,246,0.15);">🌙 Describe your dream in as much detail as you remember and I'll interpret its meaning and symbolism.</div>
-    </div>
-    <div class="input-area">
-      <div class="input-wrapper" style="border-color:rgba(139,92,246,0.25);">
-        <textarea id="dreamInput" class="input-textarea" rows="1" placeholder="Describe your dream..."></textarea>
-        <button class="send-btn" onclick="sendSpecialized('dream','dreamInput','dreamFeed')" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);">↗</button>
-      </div>
-    </div>
+  <div class="modal-content" style="border-color:rgba(139,92,246,0.35)">
+    <div class="modal-header" style="background:rgba(139,92,246,0.04)"><div class="modal-title"><span>😴</span> Dream Interpreter</div><button class="close-btn" onclick="closeSpecModal('dreamModal')">✕</button></div>
+    <div class="chat-feed" id="dreamFeed"><div class="chat-bubble ai" style="border-color:rgba(139,92,246,0.15)">🌙 Describe your dream in as much detail as you remember.</div></div>
+    <div class="input-area"><div class="input-wrapper" style="border-color:rgba(139,92,246,0.25)"><textarea id="dreamInput" class="input-textarea" rows="1" placeholder="Describe your dream..."></textarea><button class="send-btn" onclick="sendSpecialized('dream','dreamInput','dreamFeed')" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">↗</button></div></div>
   </div>
 </div>
 
-<!-- Scam Detector -->
 <div class="modal-overlay" id="scamModal">
-  <div class="modal-content" style="border-color:rgba(239,68,68,0.35);">
-    <div class="modal-header" style="background:rgba(239,68,68,0.04);">
-      <div class="modal-title"><span>🕵️</span> Scam Detector</div>
-      <button class="close-btn" onclick="closeSpecModal('scamModal')">✕</button>
-    </div>
-    <div class="chat-feed" id="scamFeed">
-      <div class="chat-bubble ai" style="border-color:rgba(239,68,68,0.15);">🛡️ Paste a suspicious message, email, or website description and I'll analyze it for scam indicators and red flags.</div>
-    </div>
-    <div class="input-area">
-      <div class="input-wrapper" style="border-color:rgba(239,68,68,0.25);">
-        <textarea id="scamInput" class="input-textarea" rows="1" placeholder="Paste suspicious message or describe the situation..."></textarea>
-        <button class="send-btn" onclick="sendSpecialized('scam','scamInput','scamFeed')" style="background:linear-gradient(135deg,#ef4444,#dc2626);">↗</button>
-      </div>
-    </div>
+  <div class="modal-content" style="border-color:rgba(239,68,68,0.35)">
+    <div class="modal-header" style="background:rgba(239,68,68,0.04)"><div class="modal-title"><span>🕵️</span> Scam Detector</div><button class="close-btn" onclick="closeSpecModal('scamModal')">✕</button></div>
+    <div class="chat-feed" id="scamFeed"><div class="chat-bubble ai" style="border-color:rgba(239,68,68,0.15)">🛡️ Paste a suspicious message or email to analyze for scam indicators.</div></div>
+    <div class="input-area"><div class="input-wrapper" style="border-color:rgba(239,68,68,0.25)"><textarea id="scamInput" class="input-textarea" rows="1" placeholder="Paste suspicious message..."></textarea><button class="send-btn" onclick="sendSpecialized('scam','scamInput','scamFeed')" style="background:linear-gradient(135deg,#ef4444,#dc2626)">↗</button></div></div>
   </div>
 </div>
 
-<!-- Mood AI -->
 <div class="modal-overlay" id="moodModal">
-  <div class="modal-content" style="border-color:rgba(6,182,212,0.35);">
-    <div class="modal-header" style="background:rgba(6,182,212,0.04);">
-      <div class="modal-title"><span>🌈</span> Mood AI</div>
-      <button class="close-btn" onclick="closeSpecModal('moodModal')">✕</button>
-    </div>
-    <div class="chat-feed" id="moodFeed">
-      <div class="chat-bubble ai" style="border-color:rgba(6,182,212,0.15);">🌈 Tell me how you're feeling — I'll adapt my responses to your mood and help you with whatever you need right now!</div>
-    </div>
-    <div class="input-area">
-      <div class="input-wrapper" style="border-color:rgba(6,182,212,0.25);">
-        <textarea id="moodInput" class="input-textarea" rows="1" placeholder="How are you feeling? What do you need?"></textarea>
-        <button class="send-btn" onclick="sendSpecialized('mood','moodInput','moodFeed')" style="background:linear-gradient(135deg,#06b6d4,#0891b2);">↗</button>
-      </div>
-    </div>
+  <div class="modal-content" style="border-color:rgba(6,182,212,0.35)">
+    <div class="modal-header" style="background:rgba(6,182,212,0.04)"><div class="modal-title"><span>🌈</span> Mood AI</div><button class="close-btn" onclick="closeSpecModal('moodModal')">✕</button></div>
+    <div class="chat-feed" id="moodFeed"><div class="chat-bubble ai" style="border-color:rgba(6,182,212,0.15)">🌈 Tell me how you're feeling — I'll adapt to your mood!</div></div>
+    <div class="input-area"><div class="input-wrapper" style="border-color:rgba(6,182,212,0.25)"><textarea id="moodInput" class="input-textarea" rows="1" placeholder="How are you feeling?"></textarea><button class="send-btn" onclick="sendSpecialized('mood','moodInput','moodFeed')" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">↗</button></div></div>
   </div>
 </div>
 
-<!-- Toast -->
+<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<!-- ═══════ INLINE SCRIPTS ═══════ -->
 <script>
-  // ── Scroll topbar effect ──
-  const mainArea = document.getElementById('mainArea');
-  const topbar   = document.getElementById('topbar');
-  mainArea.addEventListener('scroll', () => {
-    topbar.classList.toggle('scrolled', mainArea.scrollTop > 10);
-  });
+  // ── Greeting ──
+  const hr = new Date().getHours();
+  const greet = hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening';
 
-  // ── Intersection Observer for fade-in ──
-  const observer = new IntersectionObserver(entries => {
+  // ── Fade-in observer ──
+  const fadeObserver = new IntersectionObserver(entries => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) {
         setTimeout(() => e.target.classList.add('visible'), i * 80);
-        observer.unobserve(e.target);
+        fadeObserver.unobserve(e.target);
       }
     });
   }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
 
-  // ── Ripple effect ──
-  document.querySelectorAll('.hero-card, .tool-card, .row-card, .ctrl-btn, .pill').forEach(el => {
+  // ── Ripple ──
+  document.querySelectorAll('[onclick]').forEach(el => {
     el.addEventListener('click', function(e) {
       const r = document.createElement('span');
       r.className = 'ripple';
@@ -1188,60 +602,6 @@
     });
   });
 
-  // ── Nav active state ──
-  function setNav(el, name) {
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    el.classList.add('active');
-    showToast('📂 ' + name);
-  }
-
-  // ── Pill filter ──
-  function setPill(el, cat) {
-    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-    el.classList.add('active');
-    const cards = document.querySelectorAll('#toolsGrid .tool-card');
-    cards.forEach(c => {
-      const match = cat === 'All' || c.dataset.cat === cat;
-      c.style.transition = 'all 0.3s ease';
-      c.style.opacity = match ? '1' : '0.25';
-      c.style.transform = match ? '' : 'scale(0.95)';
-      c.style.pointerEvents = match ? '' : 'none';
-    });
-  }
-
-  // ── Open tool → update player bar ──
-  function openTool(name, icon) {
-    document.getElementById('nowName').textContent = name;
-    document.getElementById('nowIco').textContent = icon;
-    document.getElementById('nowCat').textContent = getCat(name);
-    showToast('✦ Switched to ' + name);
-  }
-  function getCat(name) {
-    const map = {
-      'Summarizer':'Text AI','AI Chatbot':'Text AI','Image Generator':'Image AI',
-      'Music Composer':'Music AI','Voice Clone':'Voice AI','Data Analyst':'Productivity',
-      'Video Generator':'Video AI','Research AI':'Research AI','Recipe Generator':'Specialized',
-      'Workout Planner':'Specialized','Travel Planner':'Specialized','Dream Interpreter':'Specialized',
-      'Scam Detector':'Specialized','Mood AI':'Specialized','Text AI':'Text AI',
-      'Image AI':'Image AI','Music & Voice':'Audio AI','Video AI':'Video AI',
-      'Productivity':'Productivity AI','Research AI':'Research AI'
-    };
-    return map[name] || 'AI Tool';
-  }
-
-  // ── Search filter ──
-  function filterTools(q) {
-    const cards = document.querySelectorAll('#toolsGrid .tool-card');
-    q = q.toLowerCase();
-    cards.forEach(c => {
-      const text = c.textContent.toLowerCase();
-      const show = !q || text.includes(q);
-      c.style.opacity = show ? '1' : '0.2';
-      c.style.transform = show ? '' : 'scale(0.95)';
-      c.style.pointerEvents = show ? '' : 'none';
-    });
-  }
-
   // ── Toast ──
   let toastTimer;
   function showToast(msg) {
@@ -1252,40 +612,104 @@
     toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
   }
 
-  // ── Greeting time ──
-  const hr = new Date().getHours();
-  const greet = hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening';
-  document.querySelector('.greeting').innerHTML = greet + ' <span>✦</span>';
-
-  // ── Tilt effect on hero cards ──
-  document.querySelectorAll('.hero-card').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width  - 0.5;
-      const y = (e.clientY - r.top)  / r.height - 0.5;
-      card.style.transform = `translateY(-5px) scale(1.02) rotateX(${-y*8}deg) rotateY(${x*8}deg)`;
+  // ── Filter pills ──
+  function setPill(el, cat) {
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('#toolsGrid [data-cat]').forEach(c => {
+      const match = cat === 'All' || c.dataset.cat === cat;
+      c.style.transition = 'all 0.3s ease';
+      c.style.opacity = match ? '1' : '0.2';
+      c.style.pointerEvents = match ? '' : 'none';
     });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
+  }
+
+  // ── Filter tools by search ──
+  function filterTools(q) {
+    q = q.toLowerCase();
+    document.querySelectorAll('#toolsGrid [data-cat]').forEach(c => {
+      const show = !q || c.textContent.toLowerCase().includes(q);
+      c.style.opacity = show ? '1' : '0.2';
+      c.style.pointerEvents = show ? '' : 'none';
+    });
+  }
+
+  // ── Open tool → update mini player ──
+  function openTool(name, icon) {
+    document.getElementById('nowName').textContent = name;
+    document.getElementById('nowIco').textContent = icon;
+    showToast('✦ Switched to ' + name);
+    // routeToModal is defined in app.js (loaded below)
+    if (typeof routeToModal === 'function') routeToModal(name);
+  }
+
+  // ── Bottom nav active state ──
+  function setBottomNav(el) {
+    document.querySelectorAll('nav a').forEach(a => {
+      a.classList.remove('bg-cyan-500/15','text-cyan-400');
+      a.classList.add('text-white/30');
+    });
+    el.classList.remove('text-white/30');
+    el.classList.add('bg-cyan-500/15','text-cyan-400');
+  }
+
+  // ── Theme toggle ──
+  function toggleTheme() {
+    const body = document.body;
+    const isLight = body.classList.toggle('light-theme');
+    document.getElementById('themeIco').textContent = isLight ? '☀️' : '🌙';
+    localStorage.setItem('aihub_theme', isLight ? 'light' : 'dark');
+    showToast(isLight ? '☀️ Light mode active' : '🌙 Dark mode active');
+  }
+  // Apply saved theme
+  if (localStorage.getItem('aihub_theme') === 'light') {
+    document.body.classList.add('light-theme');
+    document.getElementById('themeIco').textContent = '☀️';
+  }
+
+  // ── Favorites (referenced by app.js) ──
+  const FAV_KEY = 'aihub_favorites';
+  const RECENT_KEY = 'aihub_recent';
+  let favorites = JSON.parse(localStorage.getItem(FAV_KEY)) || [];
+  let recentHistory = JSON.parse(localStorage.getItem(RECENT_KEY)) || [];
+
+  function toggleFavorite() {
+    const name = document.getElementById('nowName').textContent;
+    const index = favorites.indexOf(name);
+    if (index === -1) { favorites.push(name); showToast('❤️ Added to favorites!'); }
+    else { favorites.splice(index, 1); showToast('💔 Removed from favorites'); }
+    localStorage.setItem(FAV_KEY, JSON.stringify(favorites));
+    updateFavUI();
+  }
+  function updateFavUI() {
+    const btn = document.getElementById('saveToolBtn');
+    const name = document.getElementById('nowName').textContent;
+    if (btn) btn.innerHTML = favorites.includes(name) ? '❤️ Saved' : '♡ Save';
+  }
+
+  // ── Keyboard shortcuts ──
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      const s = document.getElementById('searchInput');
+      if (s) s.focus();
+      showToast('🔍 Search activated');
+    }
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+    }
+  });
+
+  // Close modal on overlay click
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) overlay.classList.remove('active');
     });
   });
 </script>
 
-<style>
-/* ── Mobile Responsive Override ── */
-@media (max-width: 768px) {
-  :root { --sidebar-w: 0px !important; --bar-h: 70px !important; }
-  .app-shell { grid-template-columns: 1fr !important; }
-  .sidebar { display: none !important; }
-  .modal-overlay { left: 0 !important; }
-  .mobile-nav { display: flex !important; }
-  .player-bar { bottom: 0 !important; left: 0 !important; width: 100% !important; }
-}
-</style>
-
 <script src="app.js"></script>
 <script>
-  // Register Service Worker for PWA
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').then(() => console.log('SW registered'));
   }

@@ -198,11 +198,7 @@ function routeToModal(name) {
   if (specMap[name])             return openSpecModal(specMap[name]);
 }
 
-// Also wire the bottom bar "Open Tool" button
-document.querySelector('.ctrl-btn.primary').addEventListener('click', () => {
-  const name = document.getElementById('nowName').textContent;
-  routeToModal(name);
-});
+// Bottom bar "Open Tool" — handled via inline onclick in index.html
 
 // Close modals on overlay click
 document.querySelectorAll('.modal-overlay').forEach(overlay => {
@@ -926,12 +922,6 @@ async function analyzeVideoTranscript() {
   }
 }
 
-// Modal Router
-function routeToModal(name) {
-  if (name.includes('Music')) openMusicModal();
-  else if (name.includes('Video')) openVideoModal();
-  else if (name.includes('Research')) openResearchModal();
-  else if (name.includes('Chat')) openChatModal();
-  else if (name.includes('Image')) openImageModal();
-  else if (name.includes('Code')) openProdModal();
-}
+// routeToModal fallback (primary router is defined above at line ~176)
+// This overrides the inline script version cleanly
+window.routeToModal = routeToModal;
