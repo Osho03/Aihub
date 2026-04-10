@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aihub-v2';
+const CACHE_NAME = 'aihub-v3';
 const STATIC_ASSETS = ['/', '/index.html', '/style.css', '/app.js', '/manifest.json'];
 
 self.addEventListener('install', (event) => {
