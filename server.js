@@ -13,6 +13,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Explicit route for APK download
+app.get('/app-release.apk', (req, res) => {
+  const apkPath = path.join(__dirname, 'public', 'app-release.apk');
+  res.download(apkPath, 'aihub-app.apk', (err) => {
+    if (err) {
+      console.error('APK Download Error:', err);
+      res.status(404).send('APK file not found. Please try again later.');
+    }
+  });
+});
+
 // Initialize OpenAI client pointing to NVIDIA NIM
 const openai = new OpenAI({
   apiKey: process.env.NVIDIA_API_KEY,
@@ -395,4 +406,5 @@ except Exception as e:
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
+  console.log('AIHUB Celestial Curator — Ready for synthesis.');
 });
