@@ -16,6 +16,7 @@ class AiHubApp extends StatefulWidget {
 class _AiHubAppState extends State<AiHubApp> {
   late final WebViewController controller;
   bool isLoading = true;
+  bool _isLoaded = false;
 
   // IMPORTANT: YOUR PERMANENT RENDER URL
   final String appUrl = "https://aihub-9dbr.onrender.com";
@@ -23,7 +24,11 @@ class _AiHubAppState extends State<AiHubApp> {
   @override
   void initState() {
     super.initState();
-    requestPermissions();
+    
+    // 3. Wrap async calls inside post-frame callback
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await requestPermissions();
+    });
     
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -31,13 +36,22 @@ class _AiHubAppState extends State<AiHubApp> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onPageStarted: (String url) {
-            setState(() => isLoading = true);
+            if (mounted) {
+              setState(() => isLoading = true);
+            }
           },
           onPageFinished: (String url) {
-            setState(() => isLoading = false);
+            // 2 & 3. Add mounted check and set _isLoaded on finish
+            if (mounted) {
+              setState(() {
+                isLoading = false;
+                _isLoaded = true;
+              });
+            }
           },
         ),
       )
+      ..clearCache() // Small helpful addition for cold launches
       ..loadRequest(Uri.parse(appUrl));
   }
 
@@ -51,12 +65,17 @@ class _AiHubAppState extends State<AiHubApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      // 1. Fix opaque generic colors to match specific app theme layout bounds
+      backgroundColor: const Color(0xFF0E0E0E),
       body: SafeArea(
         child: Stack(
           children: [
-            WebViewWidget(controller: controller),
-            if (isLoading)
+            // 2. Hide WebView visually until the page finishes loading
+            Opacity(
+              opacity: _isLoaded ? 1.0 : 0.0,
+              child: WebViewWidget(controller: controller),
+            ),
+            if (!_isLoaded || isLoading)
               const Center(
                 child: CircularProgressIndicator(color: Color(0xFF7C5CFC)),
               ),
