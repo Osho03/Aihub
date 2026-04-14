@@ -63,7 +63,7 @@
   @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
 
   /* Toast */
-  .toast{position:fixed;bottom:110px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(20,20,32,0.95);backdrop-filter:blur(16px);border:1px solid rgba(124,92,252,0.4);border-radius:12px;padding:12px 22px;font-size:13px;color:#fff;box-shadow:0 8px 32px rgba(0,0,0,0.5);z-index:9999;opacity:0;transition:all 0.3s cubic-bezier(.34,1.56,.64,1);pointer-events:none;white-space:nowrap}
+  .toast{position:fixed;bottom:calc(100px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:rgba(20,20,32,0.95);backdrop-filter:blur(16px);border:1px solid rgba(124,92,252,0.4);border-radius:12px;padding:12px 22px;font-size:13px;color:#fff;box-shadow:0 8px 32px rgba(0,0,0,0.5);z-index:9999;opacity:0;transition:all 0.3s cubic-bezier(.34,1.56,.64,1);pointer-events:none;white-space:nowrap}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
   /* Onboard tip */
@@ -130,10 +130,10 @@
 <main id="mainArea" class="pt-20 pb-40 px-4 max-w-7xl mx-auto relative z-10">
 
   <!-- Hero Label -->
-  <section class="mb-8 fade-in">
+  <section class="mb-6 md:mb-8 fade-in">
     <span class="section-lbl">Neural Architecture v.04</span>
     <h2 class="text-4xl md:text-6xl font-black tracking-tight leading-none">Celestial <br/><span class="text-white/40">Intelligence.</span></h2>
-    <p class="text-white/40 text-sm mt-3 max-w-xs">Synthesizing human creativity with machine precision.</p>
+    <p class="text-white/40 text-xs md:text-sm mt-2 md:mt-3 max-w-xs">Synthesizing human creativity with machine precision.</p>
   </section>
 
   <!-- Filter Pills -->
@@ -154,7 +154,7 @@
     <!-- CHAT — Large Feature (8 cols) -->
     <div class="col-span-12 md:col-span-8 group relative overflow-hidden rounded-2xl bg-[#131313] card-glow inner-glow cursor-pointer" data-cat="Text" onclick="openTool('AI Chatbot','💬')">
       <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-transparent"></div>
-      <div class="p-7 h-[340px] flex flex-col justify-between relative z-10">
+      <div class="p-5 md:p-7 min-h-[280px] md:min-h-[340px] flex flex-col justify-between relative z-10">
         <div class="flex justify-between items-start">
           <span class="material-symbols-outlined text-4xl text-cyan-400" style="font-variation-settings:'FILL' 1">forum</span>
           <div class="flex gap-2">
@@ -163,8 +163,8 @@
           </div>
         </div>
         <div>
-          <h3 class="text-3xl font-black tracking-tight mb-2 uppercase">AI Chat</h3>
-          <p class="text-white/40 text-sm max-w-sm mb-5">Conversational LLM with emotional context awareness, multi-modal memory, and blazing speed.</p>
+          <h3 class="text-2xl md:text-3xl font-black tracking-tight mb-2 uppercase">AI Chat</h3>
+          <p class="text-white/40 text-xs md:text-sm max-w-sm mb-4 md:mb-5">Conversational LLM with emotional context awareness, multi-modal memory, and blazing speed.</p>
           <button class="flex items-center gap-2 text-cyan-400 font-bold text-xs uppercase tracking-widest hover:gap-4 transition-all">
             Launch Console <span class="material-symbols-outlined text-sm">arrow_forward</span>
           </button>
@@ -176,7 +176,7 @@
     <!-- PRODUCTIVITY (4 cols) -->
     <div class="col-span-12 md:col-span-4 group relative overflow-hidden rounded-2xl bg-[#1a1a1a] card-glow inner-glow cursor-pointer" data-cat="Productivity" onclick="openTool('Productivity','📊')">
       <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-transparent"></div>
-      <div class="p-7 h-[340px] flex flex-col justify-between relative z-10">
+      <div class="p-5 md:p-7 min-h-[240px] md:min-h-[340px] flex flex-col justify-between relative z-10">
         <span class="material-symbols-outlined text-4xl text-emerald-400">bolt</span>
         <div>
           <h3 class="text-2xl font-black tracking-tight mb-2 uppercase">Productivity</h3>
@@ -192,7 +192,7 @@
     <!-- RESEARCH (4 cols) -->
     <div class="col-span-12 md:col-span-4 group relative overflow-hidden rounded-2xl bg-[#131313] card-glow inner-glow cursor-pointer" data-cat="Research" onclick="openTool('Research AI','🔬')">
       <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-transparent"></div>
-      <div class="p-7 h-[260px] flex flex-col justify-between relative z-10">
+      <div class="p-5 md:p-7 min-h-[190px] md:min-h-[260px] flex flex-col justify-between relative z-10">
         <span class="material-symbols-outlined text-4xl text-purple-400">psychology</span>
         <div>
           <h3 class="text-2xl font-black tracking-tight mb-1 uppercase">Research</h3>
@@ -205,7 +205,7 @@
     <!-- IMAGE GEN (4 cols) -->
     <div class="col-span-12 md:col-span-4 group relative overflow-hidden rounded-2xl bg-[#1a1a1a] card-glow inner-glow cursor-pointer" data-cat="Image" onclick="openTool('Image Generator','🖼️')">
       <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-transparent"></div>
-      <div class="p-7 h-[260px] flex flex-col justify-between relative z-10">
+      <div class="p-5 md:p-7 min-h-[190px] md:min-h-[260px] flex flex-col justify-between relative z-10">
         <span class="material-symbols-outlined text-4xl text-amber-400">palette</span>
         <div>
           <h3 class="text-2xl font-black tracking-tight mb-1 uppercase">Image Gen</h3>
@@ -218,7 +218,7 @@
     <!-- MUSIC (4 cols) -->
     <div class="col-span-12 md:col-span-4 group relative overflow-hidden rounded-2xl bg-[#131313] card-glow inner-glow cursor-pointer" data-cat="Audio" onclick="openTool('Music & Voice','🎵')">
       <div class="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-transparent to-transparent"></div>
-      <div class="p-7 h-[260px] flex flex-col justify-between relative z-10">
+      <div class="p-5 md:p-7 min-h-[190px] md:min-h-[260px] flex flex-col justify-between relative z-10">
         <span class="material-symbols-outlined text-4xl text-pink-400">music_note</span>
         <div>
           <h3 class="text-2xl font-black tracking-tight mb-1 uppercase">Music</h3>
@@ -231,7 +231,7 @@
     <!-- VIDEO TOOLS (6 cols) -->
     <div class="col-span-12 md:col-span-6 group relative overflow-hidden rounded-2xl bg-[#1a1a1a] card-glow inner-glow cursor-pointer" data-cat="Video" onclick="openTool('Video AI','🎬')">
       <div class="absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-transparent to-transparent"></div>
-      <div class="p-7 h-[260px] flex flex-col justify-between relative z-10">
+      <div class="p-5 md:p-7 min-h-[190px] md:min-h-[260px] flex flex-col justify-between relative z-10">
         <span class="material-symbols-outlined text-4xl text-cyan-300">movie_filter</span>
         <div>
           <h3 class="text-2xl font-black tracking-tight mb-1 uppercase">Video Tools</h3>
@@ -244,7 +244,7 @@
     <!-- CREATIVE WRITING (6 cols) -->
     <div class="col-span-12 md:col-span-6 group relative overflow-hidden rounded-2xl bg-[#131313] card-glow inner-glow cursor-pointer" data-cat="Text" onclick="openTool('AI Chatbot','✍')">
       <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 via-transparent to-transparent"></div>
-      <div class="p-7 h-[260px] flex flex-col justify-between relative z-10">
+      <div class="p-5 md:p-7 min-h-[190px] md:min-h-[260px] flex flex-col justify-between relative z-10">
         <span class="material-symbols-outlined text-4xl text-red-400">auto_stories</span>
         <div>
           <h3 class="text-2xl font-black tracking-tight mb-1 uppercase">Creative Writing</h3>
@@ -289,7 +289,7 @@
 </main>
 
 <!-- ═══════ BOTTOM SHELL ═══════ -->
-<div class="fixed bottom-4 left-3 right-3 z-50 max-w-xl mx-auto">
+<div class="fixed left-3 right-3 z-50 max-w-xl mx-auto mb-4" style="bottom: env(safe-area-inset-bottom)">
   <!-- Mini Player -->
   <div id="miniPlayer" class="bg-zinc-900/50 backdrop-blur-3xl rounded-t-2xl px-4 py-3 flex items-center justify-between border border-b-0 border-white/5 mx-4">
     <div class="flex items-center gap-3">
@@ -366,7 +366,7 @@
 <div class="modal-overlay" id="prodModal">
   <div class="modal-content" style="max-width:900px;border-color:rgba(34,197,94,0.4)">
     <div class="modal-header" style="background:rgba(34,197,94,0.05)">
-      <div class="modal-title"><span class="modal-title-icon" style="background:#22c55e;-webkit-background-clip:padding-box">📊</span> AI Code Assistant</div>
+      <div class="modal-title"><span class="modal-title-icon" style="background:#22c55e;-webkit-background-clip:padding-box;background-clip:padding-box;">📊</span> AI Code Assistant</div>
       <button class="close-btn" onclick="closeProdModal()">✕</button>
     </div>
     <div class="chat-feed" id="prodFeed" style="background:rgba(0,0,0,0.1)">
@@ -385,7 +385,7 @@
 <div class="modal-overlay" id="researchModal">
   <div class="modal-content" style="max-width:950px;border-color:rgba(59,130,246,0.4)">
     <div class="modal-header" style="background:rgba(59,130,246,0.05)">
-      <div class="modal-title"><span class="modal-title-icon" style="background:#3b82f6;-webkit-background-clip:padding-box">🔬</span> Research Lab</div>
+      <div class="modal-title"><span class="modal-title-icon" style="background:#3b82f6;-webkit-background-clip:padding-box;background-clip:padding-box;">🔬</span> Research Lab</div>
       <button class="close-btn" onclick="closeResearchModal()">✕</button>
     </div>
     <div class="chat-feed" id="researchFeed" style="background:rgba(0,0,0,0.2)">
